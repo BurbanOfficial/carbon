@@ -1,0 +1,481 @@
+/* agence.css */
+
+/* HERO */
+.agence-hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.agence-hero__inner {
+  text-align: center;
+  z-index: 1;
+  transition: transform 0.2s ease-out;
+  overflow: visible;
+}
+
+.agence-hero__label {
+  font-family: "Source Code Pro", monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: rgba(0,0,15,0.4);
+  margin-bottom: 32px;
+}
+
+.agence-hero__title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(42px, 6vw, 88px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #00000F;
+  margin: 0 0 32px;
+  letter-spacing: -0.02em;
+  padding: 8px 24px 8px 8px;
+}
+
+.agence-hero__line {
+  display: block;
+}
+
+.agence-hero__accent {
+  color: var(--accent);
+  font-style: italic;
+}
+
+.agence-hero__label,
+.agence-hero__sub,
+.agence-hero__scroll-btn {
+  transition: transform 0.2s ease-out;
+}
+
+.agence-hero__sub {
+  font-family: "Source Code Pro", monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0,0,15,0.35);
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+.agence-hero__scroll-btn {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font-size: 18px;
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  animation: bounce-btn 2s ease-in-out infinite;
+}
+
+.agence-hero__scroll-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+@keyframes bounce-btn {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* MANIFESTE - Style hero animé */
+.agence-manifeste {
+  padding: 100px 120px 80px;
+  background: #00000F;
+  position: relative;
+  overflow: hidden;
+}
+
+.agence-manifeste__label {
+  font-family: "Source Code Pro", monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.35);
+  position: absolute;
+  top: 100px;
+  left: 120px;
+}
+
+.manifeste-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 75vh;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.manifeste-hero__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 60px;
+}
+
+.manifeste-line {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(56px, 8vw, 120px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+
+.manifeste-line--accent {
+  color: var(--accent);
+  font-style: italic;
+}
+
+.manifeste-hero__desc {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.55);
+  max-width: 600px;
+  margin: 0 0 50px;
+}
+
+.manifeste-hero__traits {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px 40px;
+}
+
+.manifeste-trait {
+  font-family: "Source Code Pro", monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.08em;
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+
+/* Séparateur entre Manifeste et Valeurs */
+.agence-manifeste::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--accent);
+  margin: 40px auto 0;
+  opacity: 0.5;
+}
+
+/* VALEURS - Style hero animé */
+.agence-values {
+  padding: 100px 120px 140px;
+  background: #00000F;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.agence-values__label {
+  font-family: "Source Code Pro", monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.35);
+  position: absolute;
+  top: 100px;
+  left: 120px;
+}
+
+.values-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 80vh;
+  justify-content: center;
+}
+
+.values-hero__accent {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(72px, 10vw, 140px);
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 60px;
+  font-style: italic;
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+
+.values-hero__values {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 60px 80px;
+  margin-bottom: 60px;
+}
+
+.value-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+
+.value-item__num {
+  font-family: "Source Code Pro", monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+}
+
+.value-item__title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.values-hero__desc {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.5);
+  max-width: 520px;
+  margin: 0;
+}
+
+/* Séparateur entre Valeurs et Équipe */
+.agence-values::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--accent);
+  margin: -60px auto 0;
+  opacity: 0.5;
+}
+
+/* ÉQUIPE - Style hero animé */
+.agence-team {
+  padding: 100px 120px;
+  background: #00000F;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.agence-team__label {
+  font-family: "Source Code Pro", monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.35);
+  position: absolute;
+  top: 100px;
+  left: 120px;
+}
+
+.team-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 80vh;
+  justify-content: center;
+}
+
+.team-hero__accent {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(72px, 10vw, 140px);
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 40px;
+  font-style: italic;
+  transition: transform 0.2s ease-out;
+  padding: 0 16px 0 0;
+}
+
+.team-hero__desc {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.55);
+  max-width: 600px;
+  margin: 0 0 80px;
+}
+
+.team-hero__members {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+}
+
+.team-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+
+.team-member__photo {
+  width: 180px;
+  height: 240px;
+  overflow: hidden;
+  border-radius: 4px;
+  border: 3px solid var(--accent);
+  padding: 6px;
+}
+
+.team-member__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.5s ease;
+  filter: grayscale(20%);
+}
+
+.team-member:hover .team-member__photo img {
+  transform: scale(1.06);
+  filter: grayscale(0%) brightness(1.1);
+}
+
+.team-member__name {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.team-member__role {
+  font-family: "Source Code Pro", monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+
+/* Ticker entre Équipe et CTA */
+.agence-team + .ticker-section {
+  margin-top: -40px;
+  margin-bottom: -40px;
+  position: relative;
+  z-index: 10;
+}
+
+/* CTA */
+.agence-cta {
+  padding: 140px 120px;
+  background: #fff;
+  text-align: center;
+  border-top: 1px solid rgba(0,0,15,0.08);
+  position: relative;
+  overflow: hidden;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-apple-grid {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2752px;
+  height: 1984px;
+  transform: translate(-50%, -50%) rotateX(-5deg) rotateY(-45deg) rotateZ(12deg);
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+}
+
+.cta-apple-row {
+  display: flex;
+  border-left: 1px solid rgba(138, 136, 136, 0.2);
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.cta-apple-cell {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(138, 136, 136, 0.2);
+  border-top: 1px solid rgba(138, 136, 136, 0.2);
+  position: relative;
+  transform-style: preserve-3d;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.agence-cta__label,
+.agence-cta__title,
+.cta-btn {
+  position: relative;
+  z-index: 1;
+}
+
+.agence-cta__label {
+  font-family: "Source Code Pro", monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: rgba(0,0,15,0.35);
+  margin-bottom: 40px;
+}
+
+.agence-cta__title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(48px, 6vw, 96px);
+  font-weight: 700;
+  line-height: 1.05;
+  color: #00000F;
+  letter-spacing: -0.03em;
+  margin: 0 0 56px;
+}
+
+/* Ticker straddles hero/manifeste boundary */
+.agence-hero + .ticker-section {
+  margin-top: 30px;
+  margin-bottom: -40px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Active nav link */
+.nav-link--active {
+  opacity: 1 !important;
+  color: #fff !important;
+}
