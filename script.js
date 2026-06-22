@@ -1,4 +1,54 @@
 // script.js
+
+// Global FAQ Toggle Function
+function toggleFaq(header) {
+  const item = header.parentElement;
+  const answer = item.querySelector('.faq-answer');
+  const icon = header.querySelector('.faq-toggle i');
+  const isOpen = item.classList.contains('is-open');
+  
+  // Close all other items
+  document.querySelectorAll('.faq-item.is-open').forEach(openItem => {
+    if (openItem !== item) {
+      openItem.classList.remove('is-open');
+      const openAnswer = openItem.querySelector('.faq-answer');
+      const openIcon = openItem.querySelector('.faq-toggle i');
+      if (openAnswer) openAnswer.style.maxHeight = null;
+      if (openIcon) {
+        openIcon.classList.remove('fa-minus');
+        openIcon.classList.add('fa-plus');
+      }
+    }
+  });
+  
+  // Toggle current item
+  if (isOpen) {
+    item.classList.remove('is-open');
+    answer.style.maxHeight = null;
+    icon.classList.remove('fa-minus');
+    icon.classList.add('fa-plus');
+  } else {
+    item.classList.add('is-open');
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+    icon.classList.remove('fa-plus');
+    icon.classList.add('fa-minus');
+  }
+}
+
+// Update accent color from localStorage immediately
+const accentColor = localStorage.getItem('carbonAccent') || '#0c04ff';
+document.documentElement.style.setProperty('--accent', accentColor);
+let hex = accentColor.replace('#', '');
+if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+if (hex.length === 6) {
+  const r = parseInt(hex.substr(0, 2), 16);
+  const g = parseInt(hex.substr(2, 2), 16);
+  const b = parseInt(hex.substr(4, 2), 16);
+  document.documentElement.style.setProperty('--accent-rgb', `${r}, ${g}, ${b}`);
+}
+
+const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+
 const dot = document.querySelector('.cursor-dot');
 const ring = document.querySelector('.cursor-ring');
 
@@ -7,23 +57,51 @@ let ringX = 0, ringY = 0;
 
 const heroCoords = document.getElementById('heroCoords');
 
-document.addEventListener('mousemove', (e) => {
-  mouseRawX = e.clientX;
-  mouseRawY = e.clientY;
-  dot.style.left = e.clientX + 'px';
-  dot.style.top = e.clientY + 'px';
-  heroCoords.textContent = `${e.clientX.toString().padStart(4, '0')}, ${e.clientY.toString().padStart(4, '0')}`;
-});
+if (!isTouchDevice && dot && ring) {
+  document.addEventListener('mousemove', (e) => {
+    mouseRawX = e.clientX;
+    mouseRawY = e.clientY;
+    dot.style.left = e.clientX + 'px';
+    dot.style.top = e.clientY + 'px';
+  });
 
-function lerpCursor() {
-  ringX += (mouseRawX - ringX) * 0.1;
-  ringY += (mouseRawY - ringY) * 0.1;
-  ring.style.left = ringX + 'px';
-  ring.style.top = ringY + 'px';
-  requestAnimationFrame(lerpCursor);
+  function lerpCursor() {
+    ringX += (mouseRawX - ringX) * 0.1;
+    ringY += (mouseRawY - ringY) * 0.1;
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+    requestAnimationFrame(lerpCursor);
+  }
+
+  lerpCursor();
 }
 
-lerpCursor();
+document.addEventListener('mousemove', (e) => {
+  if (heroCoords) {
+    heroCoords.textContent = `${e.clientX.toString().padStart(4, '0')}, ${e.clientY.toString().padStart(4, '0')}`;
+  }
+});
+
+// Mise à l'échelle proportionnelle de la composition hero (même construction qu'en grand écran)
+const HERO_DESIGN_WIDTH = 1200;
+const heroStage = document.querySelector('.hero-stage');
+const heroWrapper = document.querySelector('.tagline-wrapper');
+
+function updateHeroScale() {
+  if (!heroStage || !heroWrapper) return;
+  if (window.innerWidth >= HERO_DESIGN_WIDTH) {
+    document.documentElement.style.removeProperty('--hero-scale');
+    heroStage.style.height = '';
+    return;
+  }
+  const scale = window.innerWidth / HERO_DESIGN_WIDTH;
+  document.documentElement.style.setProperty('--hero-scale', scale);
+  heroStage.style.height = (heroWrapper.offsetHeight * scale) + 'px';
+}
+
+updateHeroScale();
+window.addEventListener('resize', updateHeroScale);
+window.addEventListener('load', updateHeroScale);
 
 const navOverlay = document.getElementById('navOverlay');
 const menuBtn = document.querySelector('.menu-btn');
@@ -37,8 +115,10 @@ function generateCaptcha(questionEl, answerId) {
   document.getElementById(answerId).dataset.expected = a + b;
 }
 
-generateCaptcha(document.getElementById('captcha-q1'), 'captcha-a1');
-generateCaptcha(document.getElementById('captcha-q2'), 'captcha-a2');
+const captchaQ1 = document.getElementById('captcha-q1');
+const captchaQ2 = document.getElementById('captcha-q2');
+if (captchaQ1) generateCaptcha(captchaQ1, 'captcha-a1');
+if (captchaQ2) generateCaptcha(captchaQ2, 'captcha-a2');
 
 document.querySelectorAll('.contact-tab').forEach(tab => {
   tab.addEventListener('click', () => {
@@ -64,6 +144,7 @@ document.querySelectorAll('.contact-form').forEach(form => {
 });
 
 const typewriterEl = document.getElementById('typewriter');
+if (typewriterEl) {
 const typewriterPhrases = [
   'Le digital sans compromis',
   'Développement Web',
@@ -112,6 +193,7 @@ function typewriterTick() {
 }
 
 typewriterTick();
+}
 
 const ACCENT_COLORS = [
   '#0c04ff', '#6600cc', '#cc0066', '#ff0044',
@@ -126,12 +208,14 @@ let currentAccent = localStorage.getItem('carbonAccent') || '#0c04ff';
 // Apply saved color on load
 document.documentElement.style.setProperty('--accent', currentAccent);
 
+if (logoEl) {
 logoEl.addEventListener('mouseenter', () => {
   const others = ACCENT_COLORS.filter(c => c !== currentAccent);
   currentAccent = others[Math.floor(Math.random() * others.length)];
   document.documentElement.style.setProperty('--accent', currentAccent);
   localStorage.setItem('carbonAccent', currentAccent);
 });
+}
 
 const parallaxTargets = [
   { el: document.querySelector('.hero-image'),       fx: -40, fy: -24, base: 'translate(-75%, -39.9%)' },
@@ -140,18 +224,32 @@ const parallaxTargets = [
   { el: document.querySelector('.hero-caption'),     fx:  18, fy: -14, base: '' },
   { el: document.querySelector('.logo-text'),        fx: -10, fy:  -8, base: '' },
   { el: document.querySelector('#typewriter'),       fx:  12, fy:  10, base: '' },
+  { el: document.querySelector('.hero-descriptor'),  fx:  -8, fy:  -6, base: '' },
+  { el: document.querySelector('.formules-header'),  fx:  -6, fy:  -4, base: '' },
+  { el: document.querySelector('.formules-grid'),    fx:   6, fy:   4, base: '' },
+  { el: document.querySelector('.formules-compare'), fx:  -4, fy:  -3, base: '' },
+  { el: document.querySelector('.hosting-info'),     fx:   4, fy:   3, base: '' },
+  { el: document.querySelector('.faq-hero__label'),  fx:  -4, fy:  -3, base: '' },
+  { el: document.querySelector('.faq-hero__title'),  fx:  -6, fy:  -4, base: '' },
+  { el: document.querySelector('.faq-hero__subtitle'), fx: -2, fy: -2, base: '' },
+  { el: document.querySelector('.faq-section'),      fx:   4, fy:   3, base: '' },
+  { el: document.querySelector('.projets-hero__label'),   fx:  -4, fy:  -3, base: '' },
+  { el: document.querySelector('.projets-hero__title'),   fx:  -6, fy:  -4, base: '' },
+  { el: document.querySelector('.projets-hero__subtitle'), fx: -2, fy: -2, base: '' },
 ];
 
 let rafId = null;
 let mouseX = 0, mouseY = 0;
 
-document.addEventListener('mousemove', (e) => {
-  mouseX = (e.clientX / window.innerWidth  - 0.5);
-  mouseY = (e.clientY / window.innerHeight - 0.5);
-  if (!rafId) {
-    rafId = requestAnimationFrame(applyParallax);
-  }
-});
+if (!isTouchDevice) {
+  document.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth  - 0.5);
+    mouseY = (e.clientY / window.innerHeight - 0.5);
+    if (!rafId) {
+      rafId = requestAnimationFrame(applyParallax);
+    }
+  });
+}
 
 function applyParallax() {
   parallaxTargets.forEach(({ el, fx, fy, base }) => {
@@ -225,11 +323,65 @@ telBtn.addEventListener('click', () => {
 
 menuBtn.addEventListener('click', () => {
   navOverlay.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
 });
 
 navClose.addEventListener('click', () => {
   navOverlay.classList.remove('is-open');
+  document.body.style.overflow = '';
 });
+
+// Apple-style 3D Grid for Sur-mesure section
+const surmesureGrid = document.getElementById('surmesureGrid');
+if (surmesureGrid) {
+  const cols = 43;
+  const rows = 31;
+  
+  function getComplementaryColor() {
+    let accent = localStorage.getItem('carbonAccent') || '#0c04ff';
+    let hex = accent.replace('#', '');
+    if (hex.length === 3) {
+      hex = hex.split('').map(c => c + c).join('');
+    }
+    if (hex.length === 6) {
+      const r = parseInt(hex.substr(0, 2), 16);
+      const g = parseInt(hex.substr(2, 2), 16);
+      const b = parseInt(hex.substr(4, 2), 16);
+      const compR = 255 - r;
+      const compG = 255 - g;
+      const compB = 255 - b;
+      return `rgb(${compR}, ${compG}, ${compB})`;
+    }
+    return 'rgb(243, 251, 0)';
+  }
+  
+  for (let r = 0; r < rows; r++) {
+    const row = document.createElement('div');
+    row.className = 'surmesure-grid-row';
+    for (let c = 0; c < cols; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'surmesure-grid-cell';
+      row.appendChild(cell);
+    }
+    surmesureGrid.appendChild(row);
+  }
+  
+  surmesureGrid.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('surmesure-grid-cell')) {
+      const cell = e.target;
+      const compColor = getComplementaryColor();
+      cell.style.background = compColor.replace('rgb', 'rgba').replace(')', ', 0.6)');
+      cell.style.borderColor = compColor.replace('rgb', 'rgba').replace(')', ', 0.8)');
+      cell.style.boxShadow = `0 0 15px ${compColor.replace('rgb', 'rgba').replace(')', ', 0.5)')}`;
+      
+      setTimeout(() => {
+        cell.style.background = '';
+        cell.style.borderColor = '';
+        cell.style.boxShadow = '';
+      }, 300);
+    }
+  });
+}
 
 // Smooth hover dim effect for nav menu
 const navMenu = document.querySelector('.nav-menu');
@@ -252,5 +404,215 @@ if (navMenu) {
       navMenu.classList.remove('has-hover');
     }
     link.classList.remove('is-hovered');
+  });
+}
+
+// FAQ Accordion functionality is handled by global toggleFaq() function in HTML onclick
+
+// Apple-style 3D Grid for FAQ Hero section
+const faqHeroGrid = document.getElementById('faqHeroGrid');
+if (faqHeroGrid) {
+  const cols = 42;
+  const rows = 30;
+
+  function getComplementaryColorHero() {
+    let accent = localStorage.getItem('carbonAccent') || '#0c04ff';
+    let hex = accent.replace('#', '');
+    if (hex.length === 3) {
+      hex = hex.split('').map(c => c + c).join('');
+    }
+    if (hex.length === 6) {
+      const r = parseInt(hex.substr(0, 2), 16);
+      const g = parseInt(hex.substr(2, 2), 16);
+      const b = parseInt(hex.substr(4, 2), 16);
+      const compR = 255 - r;
+      const compG = 255 - g;
+      const compB = 255 - b;
+      return `rgb(${compR}, ${compG}, ${compB})`;
+    }
+    return 'rgb(243, 251, 0)';
+  }
+
+  for (let r = 0; r < rows; r++) {
+    const row = document.createElement('div');
+    row.className = 'faq-hero__grid-row';
+    for (let c = 0; c < cols; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'faq-hero__grid-cell';
+      row.appendChild(cell);
+    }
+    faqHeroGrid.appendChild(row);
+  }
+
+  faqHeroGrid.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('faq-hero__grid-cell')) {
+      const cell = e.target;
+      const compColor = getComplementaryColorHero();
+      cell.style.background = compColor.replace('rgb', 'rgba').replace(')', ', 0.5)');
+      cell.style.borderColor = compColor.replace('rgb', 'rgba').replace(')', ', 0.7)');
+      cell.style.boxShadow = `0 0 12px ${compColor.replace('rgb', 'rgba').replace(')', ', 0.4)')}`;
+
+      setTimeout(() => {
+        cell.style.background = '';
+        cell.style.borderColor = '';
+        cell.style.boxShadow = '';
+      }, 250);
+    }
+  });
+}
+
+// Apple-style 3D Grid for Expertises Hero section
+const expertisesHeroGrid = document.getElementById('expertisesHeroGrid');
+if (expertisesHeroGrid) {
+  const cols = 42;
+  const rows = 30;
+
+  function getComplementaryColorExpertises() {
+    let accent = localStorage.getItem('carbonAccent') || '#0c04ff';
+    let hex = accent.replace('#', '');
+    if (hex.length === 3) {
+      hex = hex.split('').map(c => c + c).join('');
+    }
+    if (hex.length === 6) {
+      const r = parseInt(hex.substr(0, 2), 16);
+      const g = parseInt(hex.substr(2, 2), 16);
+      const b = parseInt(hex.substr(4, 2), 16);
+      const compR = 255 - r;
+      const compG = 255 - g;
+      const compB = 255 - b;
+      return `rgb(${compR}, ${compG}, ${compB})`;
+    }
+    return 'rgb(243, 251, 0)';
+  }
+
+  for (let r = 0; r < rows; r++) {
+    const row = document.createElement('div');
+    row.className = 'expertises-hero__grid-row';
+    for (let c = 0; c < cols; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'expertises-hero__grid-cell';
+      row.appendChild(cell);
+    }
+    expertisesHeroGrid.appendChild(row);
+  }
+
+  expertisesHeroGrid.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('expertises-hero__grid-cell')) {
+      const cell = e.target;
+      const compColor = getComplementaryColorExpertises();
+      cell.style.background = compColor.replace('rgb', 'rgba').replace(')', ', 0.5)');
+      cell.style.borderColor = compColor.replace('rgb', 'rgba').replace(')', ', 0.7)');
+      cell.style.boxShadow = `0 0 12px ${compColor.replace('rgb', 'rgba').replace(')', ', 0.4)')}`;
+
+      setTimeout(() => {
+        cell.style.background = '';
+        cell.style.borderColor = '';
+        cell.style.boxShadow = '';
+      }, 250);
+    }
+  });
+}
+
+// Apple-style 3D Grid for Expertises CTA section
+const expertisesCtaGrid = document.getElementById('expertisesCtaGrid');
+if (expertisesCtaGrid) {
+  const cols = 42;
+  const rows = 30;
+
+  function getComplementaryColorExpertisesCta() {
+    let accent = localStorage.getItem('carbonAccent') || '#0c04ff';
+    let hex = accent.replace('#', '');
+    if (hex.length === 3) {
+      hex = hex.split('').map(c => c + c).join('');
+    }
+    if (hex.length === 6) {
+      const r = parseInt(hex.substr(0, 2), 16);
+      const g = parseInt(hex.substr(2, 2), 16);
+      const b = parseInt(hex.substr(4, 2), 16);
+      const compR = 255 - r;
+      const compG = 255 - g;
+      const compB = 255 - b;
+      return `rgb(${compR}, ${compG}, ${compB})`;
+    }
+    return 'rgb(243, 251, 0)';
+  }
+
+  for (let r = 0; r < rows; r++) {
+    const row = document.createElement('div');
+    row.className = 'expertises-cta__grid-row';
+    for (let c = 0; c < cols; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'expertises-cta__grid-cell';
+      row.appendChild(cell);
+    }
+    expertisesCtaGrid.appendChild(row);
+  }
+
+  expertisesCtaGrid.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('expertises-cta__grid-cell')) {
+      const cell = e.target;
+      const compColor = getComplementaryColorExpertisesCta();
+      cell.style.background = compColor.replace('rgb', 'rgba').replace(')', ', 0.5)');
+      cell.style.borderColor = compColor.replace('rgb', 'rgba').replace(')', ', 0.7)');
+      cell.style.boxShadow = `0 0 12px ${compColor.replace('rgb', 'rgba').replace(')', ', 0.4)')}`;
+
+      setTimeout(() => {
+        cell.style.background = '';
+        cell.style.borderColor = '';
+        cell.style.boxShadow = '';
+      }, 250);
+    }
+  });
+}
+
+// Apple-style 3D Grid for FAQ CTA section
+const faqCtaGrid = document.getElementById('faqCtaGrid');
+if (faqCtaGrid) {
+  const cols = 43;
+  const rows = 31;
+  
+  function getComplementaryColor() {
+    let accent = localStorage.getItem('carbonAccent') || '#0c04ff';
+    let hex = accent.replace('#', '');
+    if (hex.length === 3) {
+      hex = hex.split('').map(c => c + c).join('');
+    }
+    if (hex.length === 6) {
+      const r = parseInt(hex.substr(0, 2), 16);
+      const g = parseInt(hex.substr(2, 2), 16);
+      const b = parseInt(hex.substr(4, 2), 16);
+      const compR = 255 - r;
+      const compG = 255 - g;
+      const compB = 255 - b;
+      return `rgb(${compR}, ${compG}, ${compB})`;
+    }
+    return 'rgb(243, 251, 0)';
+  }
+  
+  for (let r = 0; r < rows; r++) {
+    const row = document.createElement('div');
+    row.className = 'faq-cta__grid-row';
+    for (let c = 0; c < cols; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'faq-cta__grid-cell';
+      row.appendChild(cell);
+    }
+    faqCtaGrid.appendChild(row);
+  }
+  
+  faqCtaGrid.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('faq-cta__grid-cell')) {
+      const cell = e.target;
+      const compColor = getComplementaryColor();
+      cell.style.background = compColor.replace('rgb', 'rgba').replace(')', ', 0.6)');
+      cell.style.borderColor = compColor.replace('rgb', 'rgba').replace(')', ', 0.8)');
+      cell.style.boxShadow = `0 0 15px ${compColor.replace('rgb', 'rgba').replace(')', ', 0.5)')}`;
+      
+      setTimeout(() => {
+        cell.style.background = '';
+        cell.style.borderColor = '';
+        cell.style.boxShadow = '';
+      }, 300);
+    }
   });
 }

@@ -1,0 +1,639 @@
+/* ============================================
+   FORMULES PAGE STYLES
+   ============================================ */
+
+.formules-section {
+  padding: 160px 48px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.formules-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.formules-label {
+  font-family: "Source Code Pro", monospace;
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-bottom: -30px;
+  display: block;
+}
+
+.formules-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 500;
+  color: #000000;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.formules-subtitle {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px;
+  color: #888;
+  line-height: 1.5;
+}
+
+/* Formules Grid */
+.formules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 100px;
+  align-items: start;
+  margin-top: 100px;
+}
+
+.formule-card {
+  background: #111;
+  border: 1px solid #222;
+  padding: 40px 32px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s ease;
+}
+
+.formule-card:hover {
+  border-color: #333;
+  transform: translateY(-8px);
+}
+
+.formule-card--featured {
+  border-color: var(--accent);
+  background: #151515;
+  transform: scale(1.05);
+  z-index: 10;
+  box-shadow: 0 0 40px rgba(var(--accent-rgb, 120, 120, 120), 0.3);
+}
+
+.formule-card--featured:hover {
+  border-color: var(--accent);
+  transform: scale(1.05) translateY(-8px);
+  box-shadow: 0 20px 60px rgba(var(--accent-rgb, 120, 120, 120), 0.4);
+}
+
+.formule-card--excellence {
+  opacity: 1;
+}
+
+.formule-card--excellence:hover {
+  transform: translateY(-8px);
+}
+
+.formule-card__badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #0a0a0a;
+  font-family: "Source Code Pro", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 6px 16px;
+  letter-spacing: 0.05em;
+}
+
+.formule-card__num {
+  font-family: "Source Code Pro", monospace;
+  font-size: 12px;
+  color: #444;
+  margin-bottom: 24px;
+}
+
+.formule-card__header {
+  margin-bottom: 24px;
+}
+
+.formule-card__title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.formule-card__subtitle {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 14px;
+  color: #888;
+}
+
+.formule-card__desc {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 15px;
+  color: #aaa;
+  line-height: 1.5;
+  margin-top: 12px;
+}
+
+.formule-card__section {
+  margin-bottom: 20px;
+}
+
+.formule-card__section-label {
+  display: block;
+  font-family: "Source Code Pro", monospace;
+  font-size: 11px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.formule-card__section--ideal {
+  background: rgba(255,255,255,0.03);
+  padding: 16px;
+  margin-left: -16px;
+  margin-right: -16px;
+  border-radius: 4px;
+}
+
+.formule-card__ideal-text {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 13px;
+  color: #888;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.formule-card__price {
+  padding: 20px 0;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #222;
+  margin-bottom: 24px;
+}
+
+.formule-card--featured .formule-card__price {
+  border-color: #333;
+}
+
+.formule-card__price-value {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.formule-card__features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+  flex: 1;
+}
+
+.formule-card__features li {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 14px;
+  color: #aaa;
+  padding: 12px 0;
+  border-bottom: 1px solid #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.formule-card__features li:last-child {
+  border-bottom: none;
+}
+
+.formule-card__features i {
+  color: var(--accent);
+  font-size: 12px;
+}
+
+.formule-card__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  padding: 16px 24px;
+  border: 1px solid #333;
+  transition: all 0.3s ease;
+}
+
+.formule-card__cta:hover {
+  border-color: #fff;
+  background: #fff;
+  color: #0a0a0a;
+}
+
+.formule-card__cta--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0a0a0a;
+}
+
+.formule-card__cta--primary:hover {
+  background: #fff;
+  border-color: #fff;
+}
+
+/* Hosting Info Box */
+.hosting-info {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  background: #111;
+  border: 1px solid #222;
+  padding: 32px 52px 40px 40px;
+  margin-bottom: 60px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: visible;
+}
+
+.hosting-info__icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.05);
+  flex-shrink: 0;
+}
+
+.hosting-info__icon i {
+  font-size: 28px;
+  color: var(--accent);
+}
+
+.hosting-info__content {
+  flex: 1;
+}
+
+.hosting-info__badge {
+  position: absolute;
+  bottom: -12px;
+  right: -12px;
+  font-family: "Source Code Pro", monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: #0a0a0a;
+  background: var(--accent);
+  padding: 8px 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  box-shadow: -4px -4px 10px rgba(0,0,0,0.3);
+}
+
+.hosting-info__title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+
+.hosting-info__desc {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 16px;
+}
+
+.hosting-info__price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.hosting-info__price-value {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.hosting-info__price-period {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 16px;
+  color: #666;
+}
+
+.hosting-info__note {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+}
+
+/* Comparison Table - Professional Style */
+.formules-compare {
+  margin-bottom: 100px;
+  background: #0a0a0a;
+  padding: 60px 48px;
+  border: 1px solid #1a1a1a;
+}
+
+.formules-compare__title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 48px;
+  letter-spacing: -0.02em;
+}
+
+.formules-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: "Space Grotesk", sans-serif;
+  background: #111;
+  border: 1px solid #222;
+  overflow: hidden;
+}
+
+.formules-table th,
+.formules-table td {
+  padding: 24px 32px;
+  text-align: center;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.formules-table th {
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: #151515;
+  border-bottom: 2px solid var(--accent);
+}
+
+.formules-table th:first-child {
+  width: 30%;
+  text-align: left;
+  background: #0d0d0d;
+}
+
+.formules-table td {
+  font-size: 14px;
+  color: #bbb;
+  transition: all 0.3s ease;
+}
+
+.formules-table td:first-child {
+  color: #fff;
+  font-weight: 500;
+  text-align: left;
+  background: #0f0f0f;
+  border-right: 1px solid #1a1a1a;
+}
+
+.formules-table td i {
+  color: var(--accent);
+  font-size: 16px;
+}
+
+.formules-table tbody tr {
+  transition: background 0.3s ease;
+}
+
+.formules-table tbody tr:nth-child(even) {
+  background: #0e0e0e;
+}
+
+.formules-table tbody tr:hover {
+  background: #1a1a1a;
+}
+
+.formules-table tbody tr:hover td {
+  color: #fff;
+}
+
+.formules-table tbody tr:hover td:first-child {
+  color: var(--accent);
+}
+
+.formules-table__note {
+  text-align: center;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 13px;
+  color: #666;
+  margin-top: 32px;
+  font-style: italic;
+}
+
+.formules-table__note i {
+  color: var(--accent);
+  margin-right: 8px;
+}
+
+/* Ticker Section - Overlap between sections */
+.ticker-section {
+  margin-top: -60px !important;
+  margin-bottom: -60px !important;
+  position: relative;
+  z-index: 100;
+}
+
+/* Sur-mesure Section - Professional Style with Apple Grid */
+.surmesure-section {
+  padding: 140px 48px;
+  background-color: #fff;
+  border-top: 1px solid #e5e5e5;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.surmesure-grid-bg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2752px;
+  height: 1984px;
+  transform: translate(-50%, -50%) rotateX(-5deg) rotateY(-45deg) rotateZ(12deg);
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+}
+
+.surmesure-grid-row {
+  display: flex;
+  border-left: 1px solid rgba(138, 136, 136, 0.2);
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.surmesure-grid-cell {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(138, 136, 136, 0.2);
+  border-top: 1px solid rgba(138, 136, 136, 0.2);
+  position: relative;
+  transform-style: preserve-3d;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.surmesure-container {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.surmesure-btn {
+  pointer-events: auto;
+}
+
+.surmesure-header {
+  margin-bottom: 48px;
+}
+
+.surmesure-label {
+  font-family: "Source Code Pro", monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: block;
+}
+
+.surmesure-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 500;
+  color: #0a0a0a;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.surmesure-desc {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px;
+  color: #666;
+  line-height: 1.7;
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.surmesure-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  background: #0a0a0a;
+  text-decoration: none;
+  padding: 18px 32px;
+  transition: all 0.3s ease;
+  border: none;
+  position: relative;
+  z-index: 1;
+}
+
+.surmesure-btn:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.surmesure-btn i {
+  transition: transform 0.3s ease;
+}
+
+.surmesure-btn:hover i {
+  transform: translateX(4px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .formules-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 24px;
+  }
+
+  .formule-card--featured {
+    order: -1;
+    transform: none;
+  }
+  
+  .formule-card--featured:hover {
+    transform: translateY(-8px);
+  }
+
+  .formule-card--excellence {
+    opacity: 1;
+  }
+
+  .hosting-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+  }
+
+  .formules-table {
+    font-size: 13px;
+  }
+
+  .formules-table th,
+  .formules-table td {
+    padding: 16px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .formules-section {
+    padding: 80px 24px;
+  }
+
+  .surmesure-section {
+    padding: 80px 24px;
+  }
+
+  .surmesure-title {
+    font-size: 32px;
+  }
+
+  .surmesure-desc {
+    font-size: 16px;
+  }
+
+  .hosting-info {
+    padding: 24px;
+  }
+
+  .hosting-info__price-value {
+    font-size: 28px;
+  }
+
+  .formules-table {
+    display: block;
+    overflow-x: auto;
+  }
+}

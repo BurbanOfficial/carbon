@@ -441,10 +441,16 @@
 }
 
 .agence-cta__label,
-.agence-cta__title,
+.agence-cta__title {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
 .cta-btn {
   position: relative;
   z-index: 1;
+  pointer-events: auto;
 }
 
 .agence-cta__label {

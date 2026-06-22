@@ -954,7 +954,7 @@ html, body {
 }
 
 .nav-menu a:hover .nav-arrow {
-  font-size: 36px;
+  font-size: 0.65em;
 }
 
 .nav-menu a:hover {
@@ -1030,4 +1030,269 @@ html, body {
   pointer-events: none;
   white-space: nowrap;
   padding-bottom: 20px;
+}
+
+/* === Responsive === */
+
+.hero-stage {
+  position: relative;
+  width: 100%;
+}
+
+/* Curseur personnalisé désactivé sur appareils tactiles */
+@media (hover: none) and (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
+
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}
+
+/* En dessous de la largeur de design, la composition hero est mise à
+   l'échelle proportionnellement : exactement la même construction. */
+@media (max-width: 1200px) {
+  .hero-stage {
+    overflow: hidden;
+  }
+
+  .tagline-wrapper {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1200px;
+    height: 1100px;
+    min-height: 1300px;
+    padding-right: 60px;
+    transform: translateX(-50%) scale(var(--hero-scale, 1));
+    transform-origin: top center;
+  }
+}
+
+/* Tablette */
+@media (max-width: 991px) {
+  .ticker-section {
+    margin-top: 80px;
+    margin-bottom: 40px;
+  }
+
+  .ticker-list li {
+    font-size: 20px;
+    padding: 0 24px;
+    gap: 24px;
+  }
+
+  .ticker-sep {
+    font-size: 16px;
+    margin-left: 24px;
+  }
+
+  .intro-section {
+    padding: 60px 24px;
+  }
+
+  .intro-text {
+    font-size: 18px;
+  }
+
+  .intro-text strong {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .projects-section {
+    padding: 40px 24px;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .experience-section {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .experience-image {
+    height: 360px;
+    order: 1;
+  }
+
+  .experience-content {
+    padding: 48px 24px;
+    order: 2;
+  }
+
+  .experience-label {
+    font-size: 24px;
+  }
+
+  .experience-subtitle {
+    margin-bottom: 40px;
+  }
+
+  .contact-section {
+    padding: 60px 24px;
+  }
+
+  .contact-title {
+    font-size: 36px;
+  }
+
+  .contact-tabs {
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .contact-tab {
+    padding: 14px 24px;
+  }
+
+  .form-row {
+    gap: 16px;
+  }
+
+  .site-footer {
+    padding: 60px 24px 24px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .nav-overlay {
+    width: 100vw;
+    padding-left: 24px;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    transform: translateX(100%);
+  }
+
+  .nav-menu a {
+    font-size: 34px;
+  }
+
+  .nav-brand {
+    font-size: 72px;
+    margin-right: 24px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .logo-text {
+    font-size: 150px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card {
+    aspect-ratio: 4 / 3;
+  }
+
+  .project-all-label {
+    font-size: 24px;
+  }
+
+  .project-title {
+    font-size: 22px;
+  }
+
+  .experience-image {
+    height: 280px;
+  }
+
+  .experience-label {
+    font-size: 20px;
+  }
+
+  .contact-title {
+    font-size: 28px;
+  }
+
+  .contact-tab {
+    flex: 1 1 0;
+    padding: 12px 18px;
+    text-align: center;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-captcha {
+    max-width: 100%;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .nav-menu a {
+    font-size: 26px;
+  }
+
+  .nav-brand {
+    display: none;
+  }
+
+  .nav-close {
+    top: 20px;
+    right: 20px;
+  }
+}
+
+/* Petit mobile */
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 120px;
+  }
+
+  .ticker-list li {
+    font-size: 16px;
+    padding: 0 16px;
+    gap: 16px;
+  }
+
+  .ticker-sep {
+    font-size: 12px;
+    margin-left: 16px;
+  }
+
+  .intro-text {
+    font-size: 16px;
+  }
+
+  .intro-text strong {
+    font-size: 20px;
+  }
+
+  .project-title {
+    font-size: 20px;
+  }
+
+  .contact-title {
+    font-size: 24px;
+  }
+
+  .contact-tab {
+    flex: 1 1 0;
+    padding: 12px 18px;
+    font-size: 12px;
+  }
+
+  .nav-menu a {
+    font-size: 22px;
+  }
 }

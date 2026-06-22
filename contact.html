@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — CARBON.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="contact.css" />
+</head>
+<body>
+
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <div class="hero-descriptor">Agence de Communication Digitale<br>&amp; de Développement Scientifique du Web</div>
+  <button class="menu-btn">MENU</button>
+
+  <div class="nav-overlay" id="navOverlay">
+    <nav class="nav-menu">
+      <a href="index.html"><span>Accueil</span><i class="nav-arrow fa-solid fa-arrow-up-right-from-square"></i></a>
+      <a href="nos-expertises.html"><span>Nos expertises</span><i class="nav-arrow fa-solid fa-arrow-up-right-from-square"></i></a>
+      <a href="nos-projets.html"><span>Nos projets</span><i class="nav-arrow fa-solid fa-arrow-up-right-from-square"></i></a>
+      <a href="formules.html"><span>Nos formules</span><i class="nav-arrow fa-solid fa-arrow-up-right-from-square"></i></a>
+      <a href="agence.html"><span>Votre agence</span><i class="nav-arrow fa-solid fa-arrow-up-right-from-square"></i></a>
+      <a href="faq.html"><span>FAQ</span><i class="nav-arrow fa-solid fa-arrow-up-right-from-square"></i></a>
+      <a href="contact.html"><span>Contact</span><i class="nav-arrow fa-solid fa-arrow-up-right-from-square"></i></a>
+    </nav>
+    <button class="nav-close" id="navClose">FERMER</button>
+    <div class="nav-brand">CARBON.</div>
+  </div>
+
+  <!-- HERO CONTACT -->
+  <section class="contact-hero">
+    <div class="contact-hero__grid" id="contactHeroGrid"></div>
+    <div class="contact-hero__inner">
+      <div class="contact-hero__label">_CONTACT</div>
+      <h1 class="contact-hero__title">Parlons de<br>votre projet.</h1>
+      <p class="contact-hero__sub">Devis gratuit · Réponse sous 24h</p>
+    </div>
+    <div class="contact-hero__scroll" id="scrollToForm">
+      <span>Défiler</span>
+      <div class="contact-hero__scroll-circle">
+        <svg class="scroll-ring" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle class="scroll-ring__track" cx="25" cy="25" r="23" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+          <circle class="scroll-ring__line" cx="25" cy="25" r="23" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <g transform="translate(25,25)">
+            <line x1="0" y1="-6" x2="0" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <polyline points="-4,2 0,6 4,2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFOS RAPIDES -->
+  <section class="contact-infos">
+    <div class="contact-infos__item">
+      <div class="contact-infos__icon"><i class="fa-solid fa-envelope"></i></div>
+      <div class="contact-infos__body">
+        <div class="contact-infos__label">Email</div>
+        <a href="mailto:hello@carbon.com" class="contact-infos__value">hello@carbon.com</a>
+      </div>
+    </div>
+    <div class="contact-infos__sep"></div>
+    <div class="contact-infos__item">
+      <div class="contact-infos__icon"><i class="fa-solid fa-phone"></i></div>
+      <div class="contact-infos__body">
+        <div class="contact-infos__label">Téléphone</div>
+        <button class="contact-infos__reveal" id="contactTelReveal">
+          <span id="contactTelLabel">Afficher le numéro</span>
+          <i class="fa-solid fa-eye"></i>
+        </button>
+      </div>
+    </div>
+    <div class="contact-infos__sep"></div>
+    <div class="contact-infos__item">
+      <div class="contact-infos__icon"><i class="fa-regular fa-clock"></i></div>
+      <div class="contact-infos__body">
+        <div class="contact-infos__label">Disponibilité</div>
+        <div class="contact-infos__status-row">
+          <span class="contact-infos__dot" id="contactStatusDot"></span>
+          <span class="contact-infos__status" id="contactStatusText"></span>
+        </div>
+        <div class="contact-infos__hours">Lun–Ven 9h–18h</div>
+      </div>
+    </div>
+    <div class="contact-infos__sep"></div>
+    <div class="contact-infos__item">
+      <div class="contact-infos__icon"><i class="fa-brands fa-instagram"></i></div>
+      <div class="contact-infos__body">
+        <div class="contact-infos__label">Réseaux</div>
+        <a href="#" class="contact-infos__value">@carbon.agence</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-section">
+    <div class="ticker-wrapper">
+      <ul class="ticker-list">
+        <li>Développement Web<i class="ticker-sep fa-solid fa-circle-plus"></i></li>
+        <li>Design & Expérience Utilisateur<i class="ticker-sep fa-solid fa-circle-plus"></i></li>
+        <li>Communication Digitale<i class="ticker-sep fa-solid fa-circle-plus"></i></li>
+        <li>Automatisation & IA<i class="ticker-sep fa-solid fa-circle-plus"></i></li>
+        <li>Outils Métiers<i class="ticker-sep fa-solid fa-circle-plus"></i></li>
+        <li>Hébergement & Infrastructure<i class="ticker-sep fa-solid fa-circle-plus"></i></li>
+        <li>Accompagnement<i class="ticker-sep fa-solid fa-circle-plus"></i></li>
+      </ul>
+      <ul class="ticker-list" aria-hidden="true">
+        <li>Développement Web<i class="ticker-sep fa-solid fa-circle-plus"></i></li>
+        <li>Design & Expérience Utilisateur<i class="ticker-sep fa-solid fa-circle-plus"></i></li>
+        <li>Communication Digitale<i class="ticker-sep fa-solid fa-circle-plus"></i></li>
+        <li>Automatisation & IA<i class="ticker-sep fa-solid fa-circle-plus"></i></li>
+        <li>Outils Métiers<i class="ticker-sep fa-solid fa-circle-plus"></i></li>
+        <li>Hébergement & Infrastructure<i class="ticker-sep fa-solid fa-circle-plus"></i></li>
+        <li>Accompagnement<i class="ticker-sep fa-solid fa-circle-plus"></i></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION FORMULAIRE -->
+  <section class="contact-main" id="contactForm">
+
+    <div class="contact-main__left">
+      <div class="contact-main__label">_DEVIS GRATUIT</div>
+      <h2 class="contact-main__title">On vous répond<br>dans les <em>24h</em>.</h2>
+      <p class="contact-main__desc">
+        Que vous ayez un projet précis ou une simple question, n'hésitez pas à nous écrire. Nous prenons le temps de comprendre votre besoin avant toute chose.
+      </p>
+
+      <div class="contact-main__points">
+        <div class="contact-point">
+          <span class="contact-point__num">01</span>
+          <span class="contact-point__text">Vous nous décrivez votre projet</span>
+        </div>
+        <div class="contact-point">
+          <span class="contact-point__num">02</span>
+          <span class="contact-point__text">On étudie la faisabilité</span>
+        </div>
+        <div class="contact-point">
+          <span class="contact-point__num">03</span>
+          <span class="contact-point__text">On vous envoie un devis gratuit</span>
+        </div>
+        <div class="contact-point">
+          <span class="contact-point__num">04</span>
+          <span class="contact-point__text">On démarre ensemble</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-main__right">
+
+      <div class="contact-tabs">
+        <button class="contact-tab active" data-tab="particulier"><span>Particulier</span></button>
+        <button class="contact-tab" data-tab="professionnel"><span>Professionnel</span></button>
+      </div>
+
+      <!-- FORM PARTICULIER -->
+      <form class="contact-form active" id="form-particulier" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="p-nom">Nom</label>
+            <input type="text" id="p-nom" name="nom" placeholder="Dupont" required />
+          </div>
+          <div class="form-group">
+            <label for="p-prenom">Prénom</label>
+            <input type="text" id="p-prenom" name="prenom" placeholder="Jean" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="p-email">Adresse email</label>
+            <input type="email" id="p-email" name="email" placeholder="jean.dupont@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="p-tel">Téléphone <span class="form-optional">(facultatif)</span></label>
+            <input type="tel" id="p-tel" name="tel" placeholder="+33 6 00 00 00 00" />
+          </div>
+        </div>
+
+        <div class="form-group form-group--full">
+          <label>Type de projet</label>
+          <div class="form-chips">
+            <label class="form-chip"><input type="radio" name="projet-type" value="site-web" /><span>Site web</span></label>
+            <label class="form-chip"><input type="radio" name="projet-type" value="ecommerce" /><span>E-commerce</span></label>
+            <label class="form-chip"><input type="radio" name="projet-type" value="branding" /><span>Branding</span></label>
+            <label class="form-chip"><input type="radio" name="projet-type" value="communication" /><span>Communication</span></label>
+            <label class="form-chip"><input type="radio" name="projet-type" value="autre" /><span>Autre</span></label>
+          </div>
+        </div>
+
+        <div class="form-group form-group--full">
+          <label for="p-message">Message / Projet</label>
+          <textarea id="p-message" name="message" placeholder="Décrivez votre projet ou votre demande..." rows="5" required></textarea>
+        </div>
+
+        <div class="form-group form-group--full">
+          <label>Budget estimé <span class="form-optional">(facultatif)</span></label>
+          <div class="form-budget-slider">
+            <input type="range" id="p-budget" name="budget" min="500" max="20000" step="500" value="2000" />
+            <div class="form-budget-display">
+              <span class="form-budget-label">Budget :</span>
+              <span class="form-budget-value" id="p-budget-val">2 000 €</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group form-group--full form-captcha">
+          <label>Vérification <span class="form-captcha-question" id="captcha-q1"></span></label>
+          <input type="number" name="captcha" id="captcha-a1" placeholder="Votre réponse" required />
+        </div>
+
+        <button type="submit" class="cta-btn form-submit">
+          <span>Envoyer le message</span>
+          <i class="fa-solid fa-arrow-right-long"></i>
+        </button>
+      </form>
+
+      <!-- FORM PROFESSIONNEL -->
+      <form class="contact-form" id="form-professionnel" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="b-nom">Nom</label>
+            <input type="text" id="b-nom" name="nom" placeholder="Dupont" required />
+          </div>
+          <div class="form-group">
+            <label for="b-prenom">Prénom</label>
+            <input type="text" id="b-prenom" name="prenom" placeholder="Jean" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="b-email">Email professionnel</label>
+            <input type="email" id="b-email" name="email" placeholder="j.dupont@entreprise.com" required />
+          </div>
+          <div class="form-group">
+            <label for="b-tel">Téléphone professionnel <span class="form-optional">(facultatif)</span></label>
+            <input type="tel" id="b-tel" name="tel" placeholder="+33 1 00 00 00 00" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="b-entreprise">Entreprise / Association</label>
+            <input type="text" id="b-entreprise" name="entreprise" placeholder="ACME SAS" required />
+          </div>
+          <div class="form-group">
+            <label for="b-siret">Numéro SIRET</label>
+            <input type="text" id="b-siret" name="siret" placeholder="000 000 000 00000" required />
+          </div>
+        </div>
+
+        <div class="form-group form-group--full">
+          <label>Type de projet</label>
+          <div class="form-chips">
+            <label class="form-chip"><input type="radio" name="projet-type-pro" value="site-web" /><span>Site web</span></label>
+            <label class="form-chip"><input type="radio" name="projet-type-pro" value="ecommerce" /><span>E-commerce</span></label>
+            <label class="form-chip"><input type="radio" name="projet-type-pro" value="branding" /><span>Branding</span></label>
+            <label class="form-chip"><input type="radio" name="projet-type-pro" value="communication" /><span>Communication</span></label>
+            <label class="form-chip"><input type="radio" name="projet-type-pro" value="outil-metier" /><span>Outil métier</span></label>
+            <label class="form-chip"><input type="radio" name="projet-type-pro" value="autre" /><span>Autre</span></label>
+          </div>
+        </div>
+
+        <div class="form-group form-group--full">
+          <label for="b-message">Message / Projet</label>
+          <textarea id="b-message" name="message" placeholder="Décrivez votre projet ou votre demande..." rows="5" required></textarea>
+        </div>
+
+        <div class="form-group form-group--full">
+          <label>Budget estimé <span class="form-optional">(facultatif)</span></label>
+          <div class="form-budget-slider">
+            <input type="range" id="b-budget" name="budget" min="1000" max="50000" step="1000" value="5000" />
+            <div class="form-budget-display">
+              <span class="form-budget-label">Budget :</span>
+              <span class="form-budget-value" id="b-budget-val">5 000 €</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group form-group--full form-captcha">
+          <label>Vérification <span class="form-captcha-question" id="captcha-q2"></span></label>
+          <input type="number" name="captcha" id="captcha-a2" placeholder="Votre réponse" required />
+        </div>
+
+        <button type="submit" class="cta-btn form-submit">
+          <span>Envoyer le message</span>
+          <i class="fa-solid fa-arrow-right-long"></i>
+        </button>
+      </form>
+
+      <!-- SUCCESS STATE -->
+      <div class="form-success" id="formSuccess">
+        <div class="form-success__icon"><i class="fa-solid fa-check"></i></div>
+        <div class="form-success__title">Message envoyé !</div>
+        <div class="form-success__desc">Nous vous répondrons dans les 24h. À très vite.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+
+      <div class="footer-col">
+        <div class="footer-index">_01</div>
+        <div class="footer-block">
+          <div class="footer-status-row">
+            <span class="footer-status-dot" id="footerStatusDot"></span>
+            <span class="footer-status-text" id="footerStatusText"></span>
+            <span class="footer-hours" id="footerHours"></span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-label">TEL</span>
+            <button class="footer-tel-btn" id="footerTelBtn">
+              <span id="footerTelLabel">Afficher le numéro</span>
+            </button>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-label">MAIL</span>
+            <a href="mailto:hello@carbon.com" class="footer-link">HELLO@CARBON.COM</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-index">_02</div>
+        <div class="footer-block">
+          <div class="footer-lang">
+            <span class="footer-lang-active">FR</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-index">_03</div>
+        <nav class="footer-nav">
+          <a href="index.html">Accueil</a>
+          <a href="nos-expertises.html">Nos expertises</a>
+          <a href="nos-projets.html">Nos projets</a>
+          <a href="formules.html">Nos formules</a>
+          <a href="agence.html">Votre agence</a>
+          <a href="faq.html">FAQ</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-index">_04</div>
+        <div class="footer-block">
+          <div class="footer-social-label">Réseaux sociaux</div>
+          <a href="#" class="footer-social-link">
+            <i class="fa-brands fa-instagram"></i>
+            <span>Instagram</span>
+          </a>
+          <p class="footer-social-caption">Si nous nous sommes rencontré,<br>ce n'est pas un hasard.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© <span id="footerYear"></span> CARBON. Tous droits réservés.</span>
+      <span class="footer-made">Internet-driven. Made with <i class="fa-solid fa-heart"></i> by CARBON.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="contact.js"></script>
+</body>
+</html>

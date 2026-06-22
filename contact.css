@@ -1,0 +1,599 @@
+/* =========================================================
+   CONTACT PAGE — contact.css
+   ========================================================= */
+
+/* ── NAV SUR FOND NOIR ──────────────────────────────────── */
+.menu-btn {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.menu-btn:hover {
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.hero-descriptor {
+  color: #fff;
+}
+
+/* ── HERO ─────────────────────────────────────────────── */
+.contact-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #00000F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.contact-hero__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.contact-hero__grid-row {
+  display: flex;
+  flex: 1;
+}
+
+.contact-hero__grid-cell {
+  flex: 1;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.contact-hero__inner {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  pointer-events: none;
+}
+
+.contact-hero__label {
+  font-family: "Source Code Pro", Sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.contact-hero__title {
+  font-family: "Space Grotesk", Sans-serif;
+  font-size: clamp(64px, 9vw, 130px);
+  font-weight: 500;
+  color: #fff;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.contact-hero__sub {
+  font-family: "Source Code Pro", Sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.contact-hero__scroll {
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  font-family: "Source Code Pro", Sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  animation: bounce 2.2s ease-in-out infinite;
+  text-decoration: none;
+  cursor: none;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.contact-hero__scroll span {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.contact-hero__scroll:hover span {
+  opacity: 1;
+}
+
+.contact-hero__scroll-circle {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.scroll-ring {
+  width: 50px;
+  height: 50px;
+  overflow: visible;
+}
+
+.scroll-ring__line {
+  stroke-dasharray: 144.51;
+  stroke-dashoffset: 144.51;
+  transform-origin: center;
+  transform: rotate(-90deg);
+  animation: ring-draw 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes ring-draw {
+  0%   { stroke-dashoffset: 144.51; opacity: 1; }
+  70%  { stroke-dashoffset: 0;      opacity: 1; }
+  90%  { stroke-dashoffset: 0;      opacity: 0; }
+  100% { stroke-dashoffset: 144.51; opacity: 0; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* ── INFOS RAPIDES ─────────────────────────────────────── */
+.contact-infos {
+  display: flex;
+  align-items: stretch;
+  background-color: #00000F;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.contact-infos__sep {
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
+}
+
+.contact-infos__item {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 40px 40px;
+  transition: background 0.25s ease;
+}
+
+.contact-infos__item:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.contact-infos__icon {
+  font-size: 18px;
+  color: var(--accent);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.contact-infos__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-infos__label {
+  font-family: "Source Code Pro", Sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.contact-infos__value {
+  font-family: "Space Grotesk", Sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contact-infos__value:hover {
+  color: #fff;
+}
+
+.contact-infos__reveal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Space Grotesk", Sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 4px 12px;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.contact-infos__reveal:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.contact-infos__reveal.revealed {
+  border-color: transparent;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.contact-infos__reveal.revealed i {
+  display: none;
+}
+
+.contact-infos__status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact-infos__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.contact-infos__dot.open { background-color: #22c55e; }
+.contact-infos__dot.soon { background-color: #f97316; }
+.contact-infos__dot.closed {
+  background-color: #ef4444;
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+.contact-infos__status {
+  font-family: "Source Code Pro", Sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.contact-infos__status.open { color: #22c55e; }
+.contact-infos__status.soon { color: #f97316; }
+.contact-infos__status.closed { color: #ef4444; }
+
+.contact-infos__hours {
+  font-family: "Source Code Pro", Sans-serif;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* ── SECTION PRINCIPALE ────────────────────────────────── */
+.contact-main {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+/* LEFT COLUMN */
+.contact-main__left {
+  padding: 100px 60px 100px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid rgba(0, 0, 15, 0.08);
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+}
+
+.contact-main__label {
+  font-family: "Source Code Pro", Sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.contact-main__title {
+  font-family: "Space Grotesk", Sans-serif;
+  font-size: clamp(40px, 4.5vw, 64px);
+  font-weight: 500;
+  color: #00000F;
+  line-height: 1.05;
+  margin: 0 0 24px;
+  letter-spacing: -0.02em;
+}
+
+.contact-main__title em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.contact-main__desc {
+  font-family: "Space Grotesk", Sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0, 0, 15, 0.5);
+  line-height: 1.65;
+  margin: 0 0 52px;
+  max-width: 380px;
+}
+
+.contact-main__points {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.contact-point {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(0, 0, 15, 0.08);
+}
+
+.contact-point:last-child {
+  border-bottom: 1px solid rgba(0, 0, 15, 0.08);
+}
+
+.contact-point__num {
+  font-family: "Source Code Pro", Sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+  min-width: 24px;
+}
+
+.contact-point__text {
+  font-family: "Space Grotesk", Sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(0, 0, 15, 0.65);
+  line-height: 1.3;
+}
+
+/* RIGHT COLUMN — FORM */
+.contact-main__right {
+  padding: 80px 80px 100px 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tabs override for contact page */
+.contact-main__right .contact-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 48px;
+  border-bottom: 1.5px solid rgba(0, 0, 15, 0.1);
+}
+
+.contact-main__right .contact-tab {
+  font-family: "Source Code Pro", Sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 15, 0.35);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 14px 28px;
+  margin-bottom: -1.5px;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.25s ease;
+}
+
+.contact-main__right .contact-tab::before {
+  display: none;
+}
+
+.contact-main__right .contact-tab.active {
+  color: #00000F;
+  border-bottom-color: var(--accent);
+}
+
+.contact-main__right .contact-tab span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Chips de type de projet */
+.form-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.form-chip {
+  display: flex;
+  align-items: center;
+}
+
+.form-chip input[type="radio"] {
+  display: none;
+}
+
+.form-chip span {
+  font-family: "Source Code Pro", Sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 15, 0.5);
+  border: 1.5px solid rgba(0, 0, 15, 0.15);
+  padding: 8px 16px;
+  display: block;
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.form-chip input[type="radio"]:checked + span {
+  color: #fff;
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.form-chip:hover span {
+  border-color: rgba(0, 0, 15, 0.4);
+  color: rgba(0, 0, 15, 0.8);
+}
+
+/* Slider budget */
+.form-budget-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.form-budget-slider input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 0, 15, 0.12);
+  outline: none;
+  border: none;
+  padding: 0;
+  cursor: none;
+}
+
+.form-budget-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: none;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 1.5px var(--accent);
+  transition: transform 0.15s ease;
+}
+
+.form-budget-slider input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.form-budget-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-budget-label {
+  font-family: "Source Code Pro", Sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(0, 0, 15, 0.35);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.form-budget-value {
+  font-family: "Space Grotesk", Sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+  transition: color 0.2s ease;
+}
+
+/* Submit button override */
+.contact-main__right .form-submit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  font-size: 14px;
+  padding: 14px 28px;
+}
+
+.contact-main__right .form-submit i {
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-main__right .form-submit:hover i {
+  transform: translateX(5px);
+}
+
+/* ── ÉTAT DE SUCCÈS ─────────────────────────────────────── */
+.form-success {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 80px 40px;
+  text-align: center;
+  flex: 1;
+}
+
+.form-success.is-visible {
+  display: flex;
+}
+
+.form-success__icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #fff;
+}
+
+.form-success__title {
+  font-family: "Space Grotesk", Sans-serif;
+  font-size: 36px;
+  font-weight: 500;
+  color: #00000F;
+  letter-spacing: -0.02em;
+}
+
+.form-success__desc {
+  font-family: "Source Code Pro", Sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0, 0, 15, 0.4);
+  letter-spacing: 0.04em;
+}
+
+/* ── TICKER ─────────────────────────────────────────────── */
+.ticker-section {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  transform: none !important;
+}
