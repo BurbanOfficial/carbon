@@ -980,12 +980,12 @@ html, body {
   top: 32px;
   right: 32px;
   font-family: "Source Code Pro", Sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   color: #fff;
   background: transparent;
   border: 1.5px solid #fff;
-  padding: 8px 16px;
+  padding: 10px 18px;
   letter-spacing: 0.05em;
   overflow: hidden;
   transition: color 0.3s ease;
@@ -1182,6 +1182,19 @@ html, body {
 
 /* Mobile */
 @media (max-width: 768px) {
+  .menu-btn {
+    font-size: 18px;
+    padding: 12px 22px;
+    top: 28px;
+    right: 28px;
+  }
+
+  .hero-descriptor {
+    font-size: 14px;
+    top: 28px;
+    left: 28px;
+  }
+
   .logo-text {
     font-size: 150px;
   }
@@ -1240,7 +1253,7 @@ html, body {
   }
 
   .nav-menu a {
-    font-size: 26px;
+    font-size: 38px;
   }
 
   .nav-brand {
@@ -1248,13 +1261,28 @@ html, body {
   }
 
   .nav-close {
-    top: 20px;
+    font-size: 16px;
+    padding: 11px 20px;
+    top: 22px;
     right: 20px;
   }
 }
 
 /* Petit mobile */
 @media (max-width: 480px) {
+  .menu-btn {
+    font-size: 16px;
+    padding: 11px 20px;
+    top: 22px;
+    right: 20px;
+  }
+
+  .hero-descriptor {
+    font-size: 12px;
+    top: 22px;
+    left: 20px;
+  }
+
   .logo-text {
     font-size: 120px;
   }
@@ -1293,6 +1321,6 @@ html, body {
   }
 
   .nav-menu a {
-    font-size: 22px;
+    font-size: 32px;
   }
 }

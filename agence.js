@@ -153,8 +153,14 @@ const navOverlay = document.getElementById('navOverlay');
 const menuBtn = document.querySelector('.menu-btn');
 const navClose = document.getElementById('navClose');
 
-menuBtn.addEventListener('click', () => navOverlay.classList.add('is-open'));
-navClose.addEventListener('click', () => navOverlay.classList.remove('is-open'));
+menuBtn.addEventListener('click', () => {
+  navOverlay.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+});
+navClose.addEventListener('click', () => {
+  navOverlay.classList.remove('is-open');
+  document.body.style.overflow = '';
+});
 
 // Parallax hero on mousemove — applied to non-italic elements only
 const heroInner = document.querySelector('.agence-hero__inner');

@@ -485,3 +485,152 @@
   opacity: 1 !important;
   color: #fff !important;
 }
+
+/* ── Responsive ── */
+
+@media (max-width: 991px) {
+  .agence-manifeste,
+  .agence-values,
+  .agence-team {
+    padding: 80px 48px 60px;
+  }
+
+  .agence-manifeste__label,
+  .agence-values__label,
+  .agence-team__label {
+    left: 48px;
+    top: 48px;
+  }
+
+  .agence-cta {
+    padding: 100px 48px;
+  }
+
+  .team-hero__members {
+    gap: 40px;
+  }
+
+  .team-member__photo {
+    width: 150px;
+    height: 200px;
+  }
+
+  .values-hero__values {
+    gap: 40px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .agence-manifeste::after,
+  .agence-values::after {
+    display: none;
+  }
+
+  .agence-hero__title {
+    font-size: clamp(32px, 8vw, 56px);
+    padding: 8px 16px;
+  }
+
+  .agence-manifeste,
+  .agence-values,
+  .agence-team {
+    padding: 72px 28px 48px;
+  }
+
+  .agence-manifeste__label,
+  .agence-values__label,
+  .agence-team__label {
+    left: 28px;
+    top: 28px;
+  }
+
+  .manifeste-hero,
+  .values-hero,
+  .team-hero {
+    min-height: auto;
+    padding: 40px 0 20px;
+  }
+
+  .manifeste-line {
+    font-size: clamp(40px, 11vw, 80px);
+  }
+
+  .values-hero__accent,
+  .team-hero__accent {
+    font-size: clamp(48px, 12vw, 96px);
+  }
+
+  .values-hero__values {
+    gap: 28px 40px;
+  }
+
+  .value-item__title {
+    font-size: 22px;
+  }
+
+  .team-hero__members {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+  }
+
+  .team-member__photo {
+    width: 130px;
+    height: 170px;
+  }
+
+  .team-member__name {
+    font-size: 16px;
+  }
+
+  .agence-cta {
+    padding: 80px 28px;
+    min-height: auto;
+  }
+
+  .manifeste-hero__desc,
+  .values-hero__desc,
+  .team-hero__desc {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .agence-manifeste,
+  .agence-values,
+  .agence-team {
+    padding: 64px 20px 40px;
+  }
+
+  .agence-manifeste__label,
+  .agence-values__label,
+  .agence-team__label {
+    left: 20px;
+    top: 20px;
+  }
+
+  .manifeste-line {
+    font-size: clamp(36px, 12vw, 64px);
+  }
+
+  .values-hero__accent,
+  .team-hero__accent {
+    font-size: clamp(40px, 14vw, 72px);
+  }
+
+  .team-hero__members {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .team-member__photo {
+    width: 160px;
+    height: 210px;
+  }
+
+  .agence-cta {
+    padding: 64px 20px;
+  }
+}

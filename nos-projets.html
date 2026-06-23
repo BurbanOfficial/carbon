@@ -743,10 +743,16 @@
       })();
 
       if (menuBtn && navOverlay) {
-        menuBtn.addEventListener('click', () => navOverlay.classList.add('is-open'));
+        menuBtn.addEventListener('click', () => {
+          navOverlay.classList.add('is-open');
+          document.body.style.overflow = 'hidden';
+        });
       }
       if (navClose && navOverlay) {
-        navClose.addEventListener('click', () => navOverlay.classList.remove('is-open'));
+        navClose.addEventListener('click', () => {
+          navOverlay.classList.remove('is-open');
+          document.body.style.overflow = '';
+        });
       }
 
       const navMenu = document.querySelector('.nav-menu');

@@ -571,15 +571,11 @@
 /* Responsive */
 @media (max-width: 1024px) {
   .formules-grid {
-    grid-template-columns: 1fr;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
 
   .formule-card--featured {
-    order: -1;
     transform: none;
   }
   
@@ -593,8 +589,21 @@
 
   .hosting-info {
     flex-direction: column;
+    align-items: center;
     text-align: center;
-    gap: 24px;
+    gap: 20px;
+    padding: 32px 28px 40px;
+    margin: 0 24px 60px;
+  }
+
+  .hosting-info__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hosting-info__price {
+    justify-content: center;
   }
 
   .formules-table {
@@ -609,7 +618,48 @@
 
 @media (max-width: 768px) {
   .formules-section {
-    padding: 80px 24px;
+    padding: 140px 0 80px;
+  }
+
+  .formules-header {
+    margin-bottom: 48px;
+    padding: 0 24px;
+  }
+
+  .formules-grid {
+    display: flex;
+    flex-direction: row;
+    grid-template-columns: unset;
+    gap: 16px;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 16px 24px 24px;
+    margin-bottom: 16px;
+    margin-top: 40px;
+  }
+
+  .formules-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .formule-card {
+    flex: 0 0 82vw;
+    max-width: 340px;
+    scroll-snap-align: center;
+    transform: none !important;
+    margin-top: 20px;
+  }
+
+  .formule-card--featured {
+    order: -1;
+  }
+
+
+  .formules-compare {
+    padding: 0 24px;
+    margin-top: 130px;
   }
 
   .surmesure-section {
@@ -622,10 +672,6 @@
 
   .surmesure-desc {
     font-size: 16px;
-  }
-
-  .hosting-info {
-    padding: 24px;
   }
 
   .hosting-info__price-value {
