@@ -450,7 +450,8 @@ app.post('/api/create-estimate', async (req, res) => {
   const { clientId, abbyCustomerId, abbyContactId, title, lines, paymentDelay, finalize, estimateType = 'estimate', withElectronicSignature = false } = req.body;
   // For pro clients use the contact ID so Abby links estimate to org via contact
   const effectiveCustomerId = abbyContactId || abbyCustomerId;
-  console.log('[create-estimate] body:', JSON.stringify({ clientId, abbyCustomerId, abbyContactId, effectiveCustomerId, title, finalize, estimateType, withElectronicSignature, lineCount: lines?.length }));
+  console.error('=== [create-estimate] HANDLER ENTERED ===');
+  console.error('[create-estimate] body:', JSON.stringify({ clientId, abbyCustomerId, abbyContactId, effectiveCustomerId, title, finalize, estimateType, withElectronicSignature, lineCount: lines?.length }));
 
   if (!abbyCustomerId || !lines || !Array.isArray(lines) || lines.length === 0) {
     return res.status(400).json({ error: 'Missing customerId or lines' });
@@ -520,9 +521,9 @@ app.post('/api/create-estimate', async (req, res) => {
     console.log('[create-estimate] lines updated, finalizeRequirements after:', JSON.stringify(updatedBilling?.finalizeRequirements));
 
     if (finalize) {
-      console.log(`[create-estimate] attempting finalize on ${estimate.id}`);
+      console.error(`[create-estimate] attempting finalize on ${estimate.id}`);
       await abbyRequest(`/v2/billing/${estimate.id}/finalize`, { method: 'PATCH' });
-      console.log(`[create-estimate] finalized successfully`);
+      console.error(`[create-estimate] finalized successfully`);
       if (withElectronicSignature) {
         try {
           await abbyRequest(`/v2/billing/estimate/${estimate.id}/electronic-signature`, { method: 'POST' });
@@ -550,7 +551,7 @@ app.post('/api/create-estimate', async (req, res) => {
     res.json({ success: true, abbyBillingId: estimate.id, number: estimate.number });
   } catch (err) {
     const details = err.data || null;
-    console.error('Create estimate error:', err.message, details);
+    console.error('=== [create-estimate] CAUGHT ERROR ===', err.message, JSON.stringify(details));
     res.status(500).json({ error: err.message || 'Failed to create estimate', details });
   }
 });
@@ -854,4 +855,5 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`Karbonn Abby API running on port ${PORT}`);
+  console.log('=== BUILD MARKER: create-estimate-debug-v3 ===');
 });
