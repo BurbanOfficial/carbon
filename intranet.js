@@ -12,8 +12,7 @@ let currentUserProfile = null;
 let currentUserRole = null;
 
 // Backend API configuration (Render)
-// Remplacer par l'URL de votre API Render, ex: https://karbonn-abby-api.onrender.com
-const API_BASE_URL = '';
+const API_BASE_URL = 'https://karbonn-x-abby.onrender.com';
 
 async function apiRequest(path, options = {}) {
   const user = auth.currentUser;
