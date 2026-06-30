@@ -407,13 +407,38 @@ app.post('/api/create-estimate', async (req, res) => {
     }
   }
 
+  // Ensure customer address is up-to-date in Abby before creating the billing
+  if (clientId) {
+    try {
+      const clientDoc = await db.collection('clients').doc(clientId).get();
+      if (clientDoc.exists) {
+        const client = clientDoc.data();
+        const address = buildAddress(client);
+        const isOrg = client.type === 'professionnel';
+        const patchPath = isOrg
+          ? `/organization/${encodeURIComponent(abbyCustomerId)}`
+          : `/contact/${encodeURIComponent(abbyCustomerId)}`;
+        await abbyRequest(patchPath, {
+          method: 'PATCH',
+          body: JSON.stringify({ billingAddress: address }),
+        });
+        console.log(`Patched Abby customer address for ${abbyCustomerId}`);
+      }
+    } catch (patchErr) {
+      console.warn('Could not patch Abby customer address (non-fatal):', patchErr.message);
+    }
+  }
+
   try {
+    console.log(`Creating estimate for customer ${abbyCustomerId}`);
     const estimate = await abbyRequest(`/v2/billing/estimate/${encodeURIComponent(abbyCustomerId)}`, {
       method: 'POST',
       body: JSON.stringify({ estimateType }),
     });
+    console.log(`Estimate created: ${estimate.id}, updating lines`);
 
     const abbyLines = buildAbbyLines(lines);
+    console.log('Lines payload:', JSON.stringify(abbyLines));
     await abbyRequest(`/v2/billing/${estimate.id}/lines`, {
       method: 'PATCH',
       body: JSON.stringify({ lines: abbyLines }),
@@ -464,13 +489,38 @@ app.post('/api/create-invoice', async (req, res) => {
     }
   }
 
+  // Ensure customer address is up-to-date in Abby before creating the billing
+  if (clientId) {
+    try {
+      const clientDoc = await db.collection('clients').doc(clientId).get();
+      if (clientDoc.exists) {
+        const client = clientDoc.data();
+        const address = buildAddress(client);
+        const isOrg = client.type === 'professionnel';
+        const patchPath = isOrg
+          ? `/organization/${encodeURIComponent(abbyCustomerId)}`
+          : `/contact/${encodeURIComponent(abbyCustomerId)}`;
+        await abbyRequest(patchPath, {
+          method: 'PATCH',
+          body: JSON.stringify({ billingAddress: address }),
+        });
+        console.log(`Patched Abby customer address for ${abbyCustomerId}`);
+      }
+    } catch (patchErr) {
+      console.warn('Could not patch Abby customer address (non-fatal):', patchErr.message);
+    }
+  }
+
   try {
+    console.log(`Creating invoice for customer ${abbyCustomerId}`);
     const invoice = await abbyRequest(`/v2/billing/invoice/${encodeURIComponent(abbyCustomerId)}`, {
       method: 'POST',
       body: JSON.stringify({}),
     });
+    console.log(`Invoice created: ${invoice.id}, updating lines`);
 
     const abbyLines = buildAbbyLines(lines);
+    console.log('Lines payload:', JSON.stringify(abbyLines));
     await abbyRequest(`/v2/billing/${invoice.id}/lines`, {
       method: 'PATCH',
       body: JSON.stringify({ lines: abbyLines }),
