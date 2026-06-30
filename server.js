@@ -227,7 +227,7 @@ app.post('/api/sync-client', async (req, res) => {
         preferences,
       };
 
-      abbyData = await abbyRequest('/organization', {
+      abbyData = await abbyRequest('/v2/organization', {
         method: 'POST',
         body: JSON.stringify(orgData),
       });
@@ -266,7 +266,7 @@ app.post('/api/sync-client', async (req, res) => {
         preferences,
       };
 
-      abbyData = await abbyRequest('/contact', {
+      abbyData = await abbyRequest('/v2/contact', {
         method: 'POST',
         body: JSON.stringify(contactData),
       });
@@ -342,7 +342,7 @@ app.post('/api/sync-all-clients', async (req, res) => {
         const orgName = client.entreprise || `${client.prenom} ${client.nom}`.trim() || client.email;
 
         if (client.type === 'professionnel') {
-          const abbyData = await abbyRequest('/organization', {
+          const abbyData = await abbyRequest('/v2/organization', {
             method: 'POST',
             body: JSON.stringify({
               name: orgName,
@@ -358,7 +358,7 @@ app.post('/api/sync-all-clients', async (req, res) => {
           abbyCustomerId = abbyData.id;
           abbyCustomerType = 'organization';
         } else {
-          const abbyData = await abbyRequest('/contact', {
+          const abbyData = await abbyRequest('/v2/contact', {
             method: 'POST',
             body: JSON.stringify({
               firstname: client.prenom || '',
