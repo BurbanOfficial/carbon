@@ -2958,6 +2958,10 @@ const facturationModalError = document.getElementById('facturation-modal-error')
 const facturationForm = document.getElementById('form-facturation');
 const facturationTypeInput = document.getElementById('facturation-type');
 const facturationClientSelect = document.getElementById('facturation-client');
+const facturationContactSelect = document.getElementById('facturation-contact');
+const facturationContactGroup = document.getElementById('facturation-contact-group');
+const facturationEsignatureGroup = document.getElementById('facturation-esignature-group');
+const facturationEsignature = document.getElementById('facturation-esignature');
 const facturationTitleInput = document.getElementById('facturation-title');
 const facturationPaymentDelay = document.getElementById('facturation-payment-delay');
 const facturationFinalize = document.getElementById('facturation-finalize');
@@ -2984,8 +2988,31 @@ function renderClientOptions() {
     option.value = client.id;
     option.textContent = label || client.email || client.id;
     option.dataset.abbyId = client.abbyCustomerId || '';
+    option.dataset.abbyContactId = client.abbyContactId || '';
+    option.dataset.clientType = client.type || 'particulier';
     facturationClientSelect.appendChild(option);
   });
+}
+
+function updateContactSelect() {
+  if (!facturationClientSelect) return;
+  const selected = facturationClientSelect.options[facturationClientSelect.selectedIndex];
+  const isPro = selected?.dataset.clientType === 'professionnel';
+  const contactId = selected?.dataset.abbyContactId || '';
+  const billingType = facturationTypeInput?.value;
+
+  if (isPro && billingType === 'estimate') {
+    if (facturationContactGroup) facturationContactGroup.style.display = '';
+    if (facturationEsignatureGroup) facturationEsignatureGroup.style.display = '';
+    if (facturationContactSelect) {
+      facturationContactSelect.innerHTML = contactId
+        ? `<option value="${contactId}">${selected.textContent}</option>`
+        : '<option value="">Aucun contact lié — re-synchronisez ce client</option>';
+    }
+  } else {
+    if (facturationContactGroup) facturationContactGroup.style.display = 'none';
+    if (facturationEsignatureGroup) facturationEsignatureGroup.style.display = 'none';
+  }
 }
 
 function createLineRow(line = {}) {
@@ -3026,6 +3053,9 @@ function openFacturationModal(type) {
   facturationFinalize.checked = false;
   facturationModalError.textContent = '';
   renderClientOptions();
+  if (facturationContactGroup) facturationContactGroup.style.display = 'none';
+  if (facturationEsignatureGroup) facturationEsignatureGroup.style.display = 'none';
+  if (facturationEsignature) facturationEsignature.checked = true;
   facturationLinesContainer.innerHTML = '';
   facturationLinesContainer.appendChild(createLineRow());
   requestAnimationFrame(() => facturationModal.classList.add('visible'));
@@ -3038,6 +3068,8 @@ function closeFacturationModal() {
 facturationModal?.addEventListener('click', e => {
   if (e.target === facturationModal) closeFacturationModal();
 });
+
+facturationClientSelect?.addEventListener('change', updateContactSelect);
 
 function getBillingLines() {
   const rows = facturationLinesContainer.querySelectorAll('.facturation-line');
@@ -3063,6 +3095,9 @@ async function handleCreateBilling(e) {
   const clientId = facturationClientSelect.value;
   const selectedOption = facturationClientSelect.options[facturationClientSelect.selectedIndex];
   const abbyCustomerId = selectedOption?.dataset.abbyId;
+  const abbyContactId = facturationContactSelect?.value || '';
+  const isPro = selectedOption?.dataset.clientType === 'professionnel';
+  const withElectronicSignature = isPro && type === 'estimate' && (facturationEsignature?.checked ?? true);
 
   if (!clientId) {
     facturationModalError.textContent = 'Veuillez sélectionner un client.';
@@ -3071,6 +3106,11 @@ async function handleCreateBilling(e) {
 
   if (!abbyCustomerId) {
     facturationModalError.textContent = 'Ce client n\'est pas encore synchronisé avec Abby. Créez d\'abord le client dans la section Clients.';
+    return;
+  }
+
+  if (isPro && type === 'estimate' && !abbyContactId) {
+    facturationModalError.textContent = 'Ce client professionnel n\'a pas de contact Abby lié. Re-synchronisez ce client d\'abord.';
     return;
   }
 
@@ -3090,10 +3130,12 @@ async function handleCreateBilling(e) {
       body: JSON.stringify({
         clientId,
         abbyCustomerId,
+        abbyContactId: abbyContactId || undefined,
         title: facturationTitleInput.value.trim(),
         paymentDelay: facturationPaymentDelay.value,
         lines,
         finalize: facturationFinalize.checked,
+        withElectronicSignature,
       }),
     });
 

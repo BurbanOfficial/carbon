@@ -233,6 +233,27 @@ app.post('/api/sync-client', async (req, res) => {
       });
       abbyCustomerId = abbyData.id;
       abbyCustomerType = 'organization';
+
+      // Create a linked contact (the individual person behind the company)
+      const contactData = {
+        firstname: client.prenom || '',
+        lastname: client.nom || '',
+        phone: client.telephone || '',
+        emails: client.email ? [client.email] : [],
+      };
+      try {
+        const contactResult = await abbyRequest(`/organization/${abbyCustomerId}/contact`, {
+          method: 'POST',
+          body: JSON.stringify(contactData),
+        });
+        // Store the contact ID alongside the org ID
+        await db.collection('clients').doc(client.id).update({
+          abbyContactId: contactResult.id,
+        });
+        console.log(`Created Abby contact ${contactResult.id} for org ${abbyCustomerId}`);
+      } catch (contactErr) {
+        console.warn('Could not create Abby contact for org (non-fatal):', contactErr.message);
+      }
     } else {
       const contactData = {
         firstname: client.prenom || '',
@@ -426,7 +447,9 @@ function buildAbbyLines(lines) {
 
 // Create estimate
 app.post('/api/create-estimate', async (req, res) => {
-  const { clientId, abbyCustomerId, title, lines, paymentDelay, finalize, estimateType = 'estimate' } = req.body;
+  const { clientId, abbyCustomerId, abbyContactId, title, lines, paymentDelay, finalize, estimateType = 'estimate', withElectronicSignature = false } = req.body;
+  // For pro clients use the contact ID so Abby links estimate to org via contact
+  const effectiveCustomerId = abbyContactId || abbyCustomerId;
 
   if (!abbyCustomerId || !lines || !Array.isArray(lines) || lines.length === 0) {
     return res.status(400).json({ error: 'Missing customerId or lines' });
@@ -466,8 +489,8 @@ app.post('/api/create-estimate', async (req, res) => {
   }
 
   try {
-    console.log(`Creating estimate for customer ${abbyCustomerId}`);
-    const estimate = await abbyRequest(`/v2/billing/estimate/${encodeURIComponent(abbyCustomerId)}`, {
+    console.log(`Creating estimate for customer ${effectiveCustomerId}`);
+    const estimate = await abbyRequest(`/v2/billing/estimate/${encodeURIComponent(effectiveCustomerId)}`, {
       method: 'POST',
       body: JSON.stringify({ estimateType }),
     });
@@ -479,6 +502,15 @@ app.post('/api/create-estimate', async (req, res) => {
       method: 'PATCH',
       body: JSON.stringify({ lines: abbyLines }),
     });
+
+    if (withElectronicSignature) {
+      try {
+        await abbyRequest(`/v2/billing/estimate/${estimate.id}/electronic-signature`, { method: 'POST' });
+        console.log(`Electronic signature activated on estimate ${estimate.id}`);
+      } catch (sigErr) {
+        console.warn('Could not activate electronic signature (non-fatal):', sigErr.message);
+      }
+    }
 
     if (finalize) {
       await abbyRequest(`/v2/billing/${estimate.id}/finalize`, { method: 'PATCH' });

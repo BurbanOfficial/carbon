@@ -3163,10 +3163,22 @@
       <form class="modal-form" id="form-facturation">
         <input type="hidden" id="facturation-type" />
         <div class="form-group">
-          <label for="facturation-client">Client</label>
+          <label for="facturation-client">Entreprise / Client</label>
           <select id="facturation-client" required>
             <option value="">Sélectionner un client...</option>
           </select>
+        </div>
+        <div class="form-group" id="facturation-contact-group" style="display:none;">
+          <label for="facturation-contact">Contact signataire <span style="color:var(--danger)">*</span></label>
+          <select id="facturation-contact">
+            <option value="">Sélectionner un contact...</option>
+          </select>
+        </div>
+        <div class="form-group" id="facturation-esignature-group" style="display:none;">
+          <label class="checkbox-label" style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+            <input type="checkbox" id="facturation-esignature" checked />
+            Activer la signature électronique (obligatoire pour les pros)
+          </label>
         </div>
         <div class="form-group">
           <label for="facturation-title">Titre du document</label>
