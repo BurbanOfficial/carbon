@@ -227,7 +227,7 @@ app.post('/api/sync-client', async (req, res) => {
         preferences,
       };
 
-      abbyData = await abbyRequest('/v2/organization', {
+      abbyData = await abbyRequest('/organization', {
         method: 'POST',
         body: JSON.stringify(orgData),
       });
@@ -242,7 +242,7 @@ app.post('/api/sync-client', async (req, res) => {
         emails: client.email ? [client.email] : [],
       };
       try {
-        const contactResult = await abbyRequest(`/v2/organization/${abbyCustomerId}/contact`, {
+        const contactResult = await abbyRequest(`/organization/${abbyCustomerId}/contact`, {
           method: 'POST',
           body: JSON.stringify(contactData),
         });
@@ -266,7 +266,7 @@ app.post('/api/sync-client', async (req, res) => {
         preferences,
       };
 
-      abbyData = await abbyRequest('/v2/contact', {
+      abbyData = await abbyRequest('/contact', {
         method: 'POST',
         body: JSON.stringify(contactData),
       });
@@ -342,7 +342,7 @@ app.post('/api/sync-all-clients', async (req, res) => {
         const orgName = client.entreprise || `${client.prenom} ${client.nom}`.trim() || client.email;
 
         if (client.type === 'professionnel') {
-          const abbyData = await abbyRequest('/v2/organization', {
+          const abbyData = await abbyRequest('/organization', {
             method: 'POST',
             body: JSON.stringify({
               name: orgName,
@@ -358,7 +358,7 @@ app.post('/api/sync-all-clients', async (req, res) => {
           abbyCustomerId = abbyData.id;
           abbyCustomerType = 'organization';
         } else {
-          const abbyData = await abbyRequest('/v2/contact', {
+          const abbyData = await abbyRequest('/contact', {
             method: 'POST',
             body: JSON.stringify({
               firstname: client.prenom || '',
@@ -479,8 +479,8 @@ app.post('/api/create-estimate', async (req, res) => {
         const patchContactId = isOrg ? abbyContactId : abbyCustomerId;
         console.log(`[create-estimate] patching address on contact ${patchContactId}, address:`, JSON.stringify(address));
         if (patchContactId) {
-          await abbyRequest(`/v2/contact/${encodeURIComponent(patchContactId)}`, {
-            method: 'PATCH',
+          await abbyRequest(`/contact/${encodeURIComponent(patchContactId)}`, {
+            method: 'PUT',
             body: JSON.stringify({ billingAddress: address }),
           });
           console.log(`[create-estimate] patched Abby contact address for ${patchContactId}`);
@@ -579,8 +579,8 @@ app.post('/api/create-invoice', async (req, res) => {
         // For orgs, patch address on the linked contact (org has no PATCH endpoint); for particulier, patch on the contact directly
         const patchContactId = isOrg ? abbyContactId : abbyCustomerId;
         if (patchContactId) {
-          await abbyRequest(`/v2/contact/${encodeURIComponent(patchContactId)}`, {
-            method: 'PATCH',
+          await abbyRequest(`/contact/${encodeURIComponent(patchContactId)}`, {
+            method: 'PUT',
             body: JSON.stringify({ billingAddress: address }),
           });
           console.log(`Patched Abby contact address for ${patchContactId}`);
