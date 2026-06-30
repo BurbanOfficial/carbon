@@ -242,7 +242,7 @@ app.post('/api/sync-client', async (req, res) => {
         emails: client.email ? [client.email] : [],
       };
       try {
-        const contactResult = await abbyRequest(`/organization/${abbyCustomerId}/contact`, {
+        const contactResult = await abbyRequest(`/v2/organization/${abbyCustomerId}/contact`, {
           method: 'POST',
           body: JSON.stringify(contactData),
         });
@@ -501,6 +501,9 @@ app.post('/api/create-estimate', async (req, res) => {
     });
     console.log(`[create-estimate] estimate created: ${estimate.id}, state: ${estimate.state}, finalizable: ${estimate.finalizable}`);
     console.log('[create-estimate] finalizeRequirements:', JSON.stringify(estimate.finalizeRequirements));
+    console.log('[create-estimate] electronicSignatureRequirements:', JSON.stringify(estimate.electronicSignatureRequirements));
+    console.log('[create-estimate] warnings:', JSON.stringify(estimate.warnings));
+    console.log('[create-estimate] withElectronicSignature flag on doc:', estimate.withElectronicSignature);
 
     const abbyLines = buildAbbyLines(lines);
     console.log('[create-estimate] lines payload:', JSON.stringify(abbyLines));
