@@ -469,33 +469,13 @@ function generateClientId() {
 }
 
 async function saveNewClient(data, type) {
-  const user = auth.currentUser;
-  if (!user) throw new Error('Non authentifié');
-
   const clientUniqueId = generateClientId();
-
-  const docRef = await db.collection('clients').add({
-    ...data,
-    type,
-    clientId: clientUniqueId,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    createdBy: user.uid
-  });
-
-  // Sync to Qonto asynchronously (do not block client creation if Qonto fails)
-  syncClientToQonto({ id: docRef.id, ...data, type }).catch(err => {
-    console.error('Qonto sync error:', err);
-  });
-
-  return clientUniqueId;
-}
-
-async function syncClientToQonto(client) {
-  if (!API_BASE_URL) return;
-  return apiRequest('/api/sync-client', {
+  const client = { ...data, type, clientId: clientUniqueId };
+  await apiRequest('/api/clients', {
     method: 'POST',
     body: JSON.stringify({ client }),
   });
+  return clientUniqueId;
 }
 
 function showClientIdNotification(clientId) {
