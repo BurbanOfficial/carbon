@@ -85,15 +85,6 @@ async function qontoRequest(path, options = {}) {
   return data;
 }
 
-function buildQontoBody(payload) {
-  return JSON.stringify({
-    data: {
-      type: 'client',
-      attributes: payload
-    }
-  });
-}
-
 function parseAddress(str) {
   if (!str) return { address: '', city: '', zipCode: '' };
   const parts = str.split(',').map(p => p.trim()).filter(Boolean);
@@ -118,17 +109,21 @@ function buildQontoPayload(client) {
   const isPro = client.type === 'professionnel';
   const addr = buildAddress(client);
   const payload = {
-    type: isPro ? 'company' : 'person',
-    email: client.email || undefined,
-    address: addr.address || undefined,
-    city: addr.city || undefined,
-    zip_code: addr.zipCode || undefined,
-    country_code: 'FR',
+    kind: isPro ? 'company' : 'individual',
     currency: 'EUR',
     locale: 'FR',
   };
+  if (client.email) payload.email = client.email;
+  if (addr.address) payload.billing_address = {
+    street_address: addr.address,
+    city: addr.city || undefined,
+    zip_code: addr.zipCode || undefined,
+    country_code: 'FR',
+  };
   if (isPro) {
     payload.name = client.entreprise || `${client.prenom || ''} ${client.nom || ''}`.trim();
+    if (client.prenom) payload.first_name = client.prenom;
+    if (client.nom) payload.last_name = client.nom;
     if (client.siret) payload.tax_identification_number = client.siret;
   } else {
     payload.first_name = client.prenom || '';
@@ -148,9 +143,8 @@ app.post('/api/clients', async (req, res) => {
 
   try {
     const payload = buildQontoPayload(client);
-    console.log('Qonto payload:', JSON.stringify({ data: { type: 'client', attributes: payload } }, null, 2));
-    const qontoData = await qontoRequest('/clients', { method: 'POST', body: buildQontoBody(payload) });
-    const qontoClientId = qontoData?.data?.id;
+    const qontoData = await qontoRequest('/clients', { method: 'POST', body: JSON.stringify({ client: payload }) });
+    const qontoClientId = qontoData?.client?.id;
 
     const docRef = await db.collection('clients').add({
       ...client,
@@ -162,7 +156,7 @@ app.post('/api/clients', async (req, res) => {
 
     res.json({ success: true, id: docRef.id, qontoClientId });
   } catch (err) {
-    console.error('Create client error:', err.message, JSON.stringify(err.data, null, 2));
+    console.error('Create client error:', err.message, err.data);
     res.status(err.status || 500).json({ error: err.message });
   }
 });
@@ -181,7 +175,7 @@ app.put('/api/clients/:id', async (req, res) => {
 
     if (qontoClientId) {
       const payload = buildQontoPayload({ ...existing, ...client });
-      await qontoRequest(`/clients/${qontoClientId}`, { method: 'PUT', body: buildQontoBody(payload) });
+      await qontoRequest(`/clients/${qontoClientId}`, { method: 'PUT', body: JSON.stringify({ client: payload }) });
     }
 
     await db.collection('clients').doc(req.params.id).update({
