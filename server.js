@@ -139,6 +139,7 @@ app.post('/api/clients', async (req, res) => {
 
   try {
     const payload = buildQontoPayload(client);
+    console.log('Qonto payload:', JSON.stringify({ client: payload }, null, 2));
     const qontoData = await qontoRequest('/clients', { method: 'POST', body: JSON.stringify({ client: payload }) });
     const qontoClientId = qontoData?.client?.id;
 
@@ -152,7 +153,7 @@ app.post('/api/clients', async (req, res) => {
 
     res.json({ success: true, id: docRef.id, qontoClientId });
   } catch (err) {
-    console.error('Create client error:', err.message, err.data);
+    console.error('Create client error:', err.message, JSON.stringify(err.data, null, 2));
     res.status(err.status || 500).json({ error: err.message });
   }
 });
