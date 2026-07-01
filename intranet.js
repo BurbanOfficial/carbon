@@ -12,7 +12,7 @@ let currentUserProfile = null;
 let currentUserRole = null;
 
 // Backend API configuration (Render)
-const API_BASE_URL = 'https://karbonn-x-qonto.onrender.com';
+const API_BASE_URL = 'https://karbonn-x-abby.onrender.com';
 
 async function apiRequest(path, options = {}) {
   const user = auth.currentUser;
