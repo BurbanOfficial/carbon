@@ -326,7 +326,7 @@ async function deleteClient(clientId) {
   if (!confirmed) return;
 
   try {
-    await apiRequest(`/api/client/${clientId}`, { method: 'DELETE' });
+    await apiRequest(`/api/clients/${clientId}`, { method: 'DELETE' });
     showToast('Client supprimé avec succès.', 'success');
   } catch (err) {
     console.error('Delete client error:', err);
