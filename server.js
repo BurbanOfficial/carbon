@@ -178,6 +178,17 @@ function parseAddress(addressString) {
 
 // Utility: build Abby address
 function buildAddress(client) {
+  // Use structured fields if available (new clients), fall back to parsing adresse string (legacy)
+  if (client.rue && client.codePostal && client.ville) {
+    return {
+      address: client.rue.trim(),
+      complement: '',
+      city: client.ville.trim(),
+      zipCode: client.codePostal.trim(),
+      state: '',
+      country: 'FR',
+    };
+  }
   const parsed = parseAddress(client.adresse || '');
   return {
     address: parsed.address,

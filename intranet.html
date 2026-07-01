@@ -2807,9 +2807,18 @@
               <input type="email" id="part-email" name="email" required />
             </div>
             <div class="form-group">
-              <label for="part-adresse">Adresse de domicile <span style="color:var(--danger)">*</span></label>
-              <input type="text" id="part-adresse" name="adresse" />
-              <small>Requise pour la facturation : numéro, rue, code postal, ville</small>
+              <label for="part-rue">Rue <span style="color:var(--danger)">*</span></label>
+              <input type="text" id="part-rue" name="rue" placeholder="11 Rue de Dauvet" required />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="part-code-postal">Code postal <span style="color:var(--danger)">*</span></label>
+                <input type="text" id="part-code-postal" name="codePostal" placeholder="27150" required pattern="\d{4,5}" />
+              </div>
+              <div class="form-group">
+                <label for="part-ville">Ville <span style="color:var(--danger)">*</span></label>
+                <input type="text" id="part-ville" name="ville" placeholder="Mainneville" required />
+              </div>
             </div>
             <div class="modal-actions">
               <button type="button" class="btn-back" id="back-from-particulier">Retour</button>
@@ -2877,9 +2886,18 @@
               <input type="text" id="pro-siret" name="siret" />
             </div>
             <div class="form-group">
-              <label for="pro-adresse">Adresse du siège social <span style="color:var(--danger)">*</span></label>
-              <input type="text" id="pro-adresse" name="adresse" />
-              <small>Requise pour la facturation : numéro, rue, code postal, ville</small>
+              <label for="pro-rue">Rue <span style="color:var(--danger)">*</span></label>
+              <input type="text" id="pro-rue" name="rue" placeholder="11 Rue de Dauvet" required />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="pro-code-postal">Code postal <span style="color:var(--danger)">*</span></label>
+                <input type="text" id="pro-code-postal" name="codePostal" placeholder="27150" required pattern="\d{4,5}" />
+              </div>
+              <div class="form-group">
+                <label for="pro-ville">Ville <span style="color:var(--danger)">*</span></label>
+                <input type="text" id="pro-ville" name="ville" placeholder="Mainneville" required />
+              </div>
             </div>
             <div class="modal-actions">
               <button type="button" class="btn-back" id="back-from-professionnel">Retour</button>

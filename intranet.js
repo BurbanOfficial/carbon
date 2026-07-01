@@ -401,27 +401,14 @@ function showFormStep(type, step) {
 function validateFormStep(type, step) {
   const container = document.getElementById(`form-step-${type}-${step}`);
   if (!container) return false;
-  const invalid = container.querySelector(':invalid');
-  if (invalid) {
-    invalid.focus();
-    return false;
-  }
-
-  // Address must contain a number (zip) and enough text for street + city
-  const addressInput = container.querySelector('input[name="adresse"]');
-  if (addressInput) {
-    const address = addressInput.value.trim();
-    const hasZip = /\d{4,5}/.test(address);
-    const parts = address.split(',').map(p => p.trim()).filter(Boolean);
-    if (!hasZip || parts.length < 2) {
-      addressInput.setCustomValidity('Format attendu : numéro, rue, code postal, ville');
-      addressInput.reportValidity();
-      addressInput.focus();
+  const inputs = container.querySelectorAll('input, select');
+  for (const input of inputs) {
+    if (!input.checkValidity()) {
+      input.reportValidity();
+      input.focus();
       return false;
     }
-    addressInput.setCustomValidity('');
   }
-
   return true;
 }
 
@@ -430,6 +417,10 @@ function collectFormData(form) {
   form.querySelectorAll('input, select').forEach(input => {
     if (input.name) data[input.name] = input.value.trim();
   });
+  // Also store assembled adresse for display/legacy compatibility
+  if (data.rue || data.codePostal || data.ville) {
+    data.adresse = [data.rue, data.codePostal, data.ville].filter(Boolean).join(', ');
+  }
   return data;
 }
 
