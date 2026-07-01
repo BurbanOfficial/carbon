@@ -1087,6 +1087,7 @@ function getFieldsForClient(client) {
   ];
   if (client.type === 'professionnel') {
     fields.push({ key: 'siret', label: 'Numéro SIRET' });
+    fields.push({ key: 'tva', label: 'Numéro de TVA' });
     fields.push({ key: 'entreprise', label: 'Entreprise' });
   }
   return fields;

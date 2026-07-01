@@ -125,6 +125,7 @@ function buildQontoPayload(client) {
     if (client.prenom) payload.first_name = client.prenom;
     if (client.nom) payload.last_name = client.nom;
     if (client.siret) payload.tax_identification_number = client.siret;
+    if (client.tva) payload.vat_number = client.tva;
   } else {
     payload.first_name = client.prenom || '';
     payload.last_name = client.nom || '';
