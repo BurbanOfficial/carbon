@@ -2380,9 +2380,6 @@
         <a href="#" class="nav-item" data-label="Projets & Services">
           <i class="fa-solid fa-diagram-project"></i>
         </a>
-        <a href="#" class="nav-item" data-label="Facturation & Devis">
-          <i class="fa-solid fa-file-invoice-dollar"></i>
-        </a>
         <a href="#" class="nav-item" data-label="Équipe">
           <i class="fa-solid fa-people-group"></i>
         </a>
@@ -2670,54 +2667,8 @@
           </div>
         </section>
 
-        <!-- Facturation & Devis -->
-        <section class="section-page" id="section-facturation">
-          <div class="section-header">
-            <div class="section-header-left">
-              <h1>Facturation & Devis</h1>
-              <div class="search-bar">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="facturation-search" placeholder="Rechercher un document..." />
-              </div>
-            </div>
-            <div class="section-header-actions">
-              <button class="btn-create" id="btn-sync-all-clients" style="margin-right:8px;background:transparent;color:var(--text);border:1px solid var(--border);">
-                <i class="fa-solid fa-rotate"></i> Synchroniser clients Abby
-              </button>
-              <button class="btn-create" id="btn-create-devis">
-                <i class="fa-solid fa-plus"></i> Devis
-              </button>
-              <button class="btn-create" id="btn-create-facture" style="margin-left:8px;">
-                <i class="fa-solid fa-plus"></i> Facture
-              </button>
-            </div>
-          </div>
-          <div class="facturation-filters">
-            <button class="facturation-filter active" data-filter="all">Tous</button>
-            <button class="facturation-filter" data-filter="estimate">Devis</button>
-            <button class="facturation-filter" data-filter="invoice">Factures</button>
-          </div>
-          <div class="table-wrapper">
-            <table class="data-table" id="facturation-table">
-              <thead>
-                <tr>
-                  <th>Numéro</th>
-                  <th>Type</th>
-                  <th>Client</th>
-                  <th>Titre</th>
-                  <th>Montant TTC</th>
-                  <th>Statut</th>
-                  <th>Date</th>
-                  <th style="text-align:right;">Actions</th>
-                </tr>
-              </thead>
-              <tbody id="facturation-table-body">
-                <tr class="empty-row"><td colspan="8">Chargement des documents...</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
 
+        <!-- Équipe -->
         <!-- Équipe -->
         <section class="section-page" id="section-equipe">
           <div class="section-header">
@@ -2744,34 +2695,76 @@
                 </tr>
               </thead>
               <tbody id="equipe-table-body">
-                <tr><td colspan="5" class="empty">Chargement de l'équipe…</td></tr>
+                <tr><td colspan="5" class="empty">Chargement...</td></tr>
               </tbody>
             </table>
           </div>
         </section>
 
-        <!-- Paramètres -->
-        <section class="section-page" id="section-parametres">
-          <div class="placeholder">
-            <i class="fa-solid fa-gear fa-2x"></i>
-            <p>Paramètres — à venir.</p>
-          </div>
-        </section>
       </div>
     </main>
   </div>
 
-  <!-- Modal Créer un client -->
+  <!-- Modal - Créer/modifier un membre -->
+  <div class="modal-overlay" id="user-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="user-modal-title">Ajouter un membre</h2>
+        <button class="modal-close" id="user-modal-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" id="form-user">
+        <input type="hidden" id="user-id" />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="user-prenom">Prénom</label>
+            <input type="text" id="user-prenom" name="prenom" required />
+          </div>
+          <div class="form-group">
+            <label for="user-nom">Nom</label>
+            <input type="text" id="user-nom" name="nom" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="user-email">Email</label>
+          <input type="email" id="user-email" name="email" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="user-role">Rôle</label>
+            <select id="user-role" name="role" required>
+              <option value="">Sélectionner</option>
+              <option value="Manager">Manager</option>
+              <option value="Développeur">Développeur</option>
+              <option value="Designer Graphique">Designer Graphique</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="user-statut">Statut</label>
+            <select id="user-statut" name="statut">
+              <option value="Actif">Actif</option>
+              <option value="Inactif">Inactif</option>
+              <option value="En congés">En congés</option>
+            </select>
+          </div>
+        </div>
+        <p class="modal-error" id="user-modal-error"></p>
+        <div class="modal-actions">
+          <span></span>
+          <button type="submit" class="btn-submit" id="user-modal-submit">Créer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal - Créer un client -->
   <div class="modal-overlay" id="client-modal">
     <div class="modal-card">
       <div class="modal-header">
         <h2 id="modal-title">Nouveau client</h2>
-        <button class="modal-close" id="modal-close"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="14" y2="14"/><line x1="14" y1="6" x2="6" y2="14"/></svg></button>
+        <button class="modal-close" id="modal-close"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
-      <!-- Étape 1 : choix du type -->
       <div class="modal-step active" id="modal-step-1">
-        <p style="font-size:0.88rem;color:var(--muted);margin-bottom:20px;">Quel type de client souhaitez-vous créer ?</p>
         <div class="type-selector">
           <div class="type-card" id="type-particulier">
             <i class="fa-solid fa-user"></i>
@@ -2784,67 +2777,47 @@
         </div>
       </div>
 
-      <!-- Étape 2 : formulaire particulier -->
+      <!-- Particulier -->
       <div class="modal-step" id="modal-step-particulier">
-        <form class="modal-form" id="form-particulier">
+        <form class="modal-form" id="form-particulier" novalidate>
           <div class="form-step active" id="form-step-particulier-1">
             <div class="form-row">
               <div class="form-group">
-                <label for="part-nom">Nom</label>
-                <input type="text" id="part-nom" name="nom" required />
-              </div>
-              <div class="form-group">
-                <label for="part-prenom">Prénom</label>
+                <label for="part-prenom">Prénom *</label>
                 <input type="text" id="part-prenom" name="prenom" required />
               </div>
+              <div class="form-group">
+                <label for="part-nom">Nom *</label>
+                <input type="text" id="part-nom" name="nom" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="part-email">Email *</label>
+              <input type="email" id="part-email" name="email" required />
             </div>
             <div class="form-group">
               <label for="part-telephone">Téléphone</label>
               <input type="tel" id="part-telephone" name="telephone" />
             </div>
-            <div class="form-group">
-              <label for="part-email">Adresse email</label>
-              <input type="email" id="part-email" name="email" required />
+            <div class="modal-actions">
+              <button type="button" class="btn-back" id="back-from-particulier">Retour</button>
+              <button type="button" class="btn-submit" id="next-particulier">Suivant</button>
             </div>
+          </div>
+          <div class="form-step" id="form-step-particulier-2">
             <div class="form-group">
-              <label for="part-rue">Rue <span style="color:var(--danger)">*</span></label>
-              <input type="text" id="part-rue" name="rue" placeholder="11 Rue de Dauvet" required />
+              <label for="part-rue">Rue</label>
+              <input type="text" id="part-rue" name="rue" />
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label for="part-code-postal">Code postal <span style="color:var(--danger)">*</span></label>
-                <input type="text" id="part-code-postal" name="codePostal" placeholder="27150" required pattern="\d{4,5}" />
+                <label for="part-cp">Code postal</label>
+                <input type="text" id="part-cp" name="codePostal" pattern="\d{4,5}" />
               </div>
               <div class="form-group">
-                <label for="part-ville">Ville <span style="color:var(--danger)">*</span></label>
-                <input type="text" id="part-ville" name="ville" placeholder="Mainneville" required />
+                <label for="part-ville">Ville</label>
+                <input type="text" id="part-ville" name="ville" />
               </div>
-            </div>
-            <div class="modal-actions">
-              <button type="button" class="btn-back" id="back-from-particulier">Retour</button>
-              <button type="button" class="btn-submit" id="next-particulier">Continuer</button>
-            </div>
-          </div>
-
-          <div class="form-step" id="form-step-particulier-2">
-            <div class="form-group">
-              <label for="part-langue">Préférence de langue</label>
-              <select id="part-langue" name="langue" required>
-                <option value="fr">Français</option>
-                <option value="en">Anglais</option>
-                <option value="es">Espagnol</option>
-                <option value="de">Allemand</option>
-                <option value="it">Italien</option>
-                <option value="nl">Néerlandais</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="part-paiement">Moyen de paiement préféré</label>
-              <select id="part-paiement" name="paiement" required>
-                <option value="transfer">Virement</option>
-                <option value="credit_card">Carte Bancaire</option>
-                <option value="cheque">Chèque</option>
-              </select>
             </div>
             <p class="modal-error" id="modal-error-particulier"></p>
             <div class="modal-actions">
@@ -2855,75 +2828,55 @@
         </form>
       </div>
 
-      <!-- Étape 2 : formulaire professionnel -->
+      <!-- Professionnel -->
       <div class="modal-step" id="modal-step-professionnel">
-        <form class="modal-form" id="form-professionnel">
+        <form class="modal-form" id="form-professionnel" novalidate>
           <div class="form-step active" id="form-step-professionnel-1">
+            <div class="form-group">
+              <label for="pro-entreprise">Nom de l'entreprise *</label>
+              <input type="text" id="pro-entreprise" name="entreprise" required />
+            </div>
             <div class="form-row">
               <div class="form-group">
-                <label for="pro-nom">Nom</label>
-                <input type="text" id="pro-nom" name="nom" required />
+                <label for="pro-prenom">Prénom contact *</label>
+                <input type="text" id="pro-prenom" name="prenom" required />
               </div>
               <div class="form-group">
-                <label for="pro-prenom">Prénom</label>
-                <input type="text" id="pro-prenom" name="prenom" required />
+                <label for="pro-nom">Nom contact *</label>
+                <input type="text" id="pro-nom" name="nom" required />
               </div>
             </div>
             <div class="form-group">
-              <label for="pro-entreprise">Nom de l'entreprise</label>
-              <input type="text" id="pro-entreprise" name="entreprise" required />
+              <label for="pro-email">Email *</label>
+              <input type="email" id="pro-email" name="email" required />
             </div>
             <div class="form-group">
               <label for="pro-telephone">Téléphone</label>
               <input type="tel" id="pro-telephone" name="telephone" />
             </div>
-            <div class="form-group">
-              <label for="pro-email">Email professionnel</label>
-              <input type="email" id="pro-email" name="email" required />
+            <div class="modal-actions">
+              <button type="button" class="btn-back" id="back-from-professionnel">Retour</button>
+              <button type="button" class="btn-submit" id="next-professionnel">Suivant</button>
             </div>
+          </div>
+          <div class="form-step" id="form-step-professionnel-2">
             <div class="form-group">
-              <label for="pro-siret">Numéro SIRET</label>
+              <label for="pro-siret">SIRET</label>
               <input type="text" id="pro-siret" name="siret" />
             </div>
             <div class="form-group">
-              <label for="pro-rue">Rue <span style="color:var(--danger)">*</span></label>
-              <input type="text" id="pro-rue" name="rue" placeholder="11 Rue de Dauvet" required />
+              <label for="pro-rue">Rue</label>
+              <input type="text" id="pro-rue" name="rue" />
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label for="pro-code-postal">Code postal <span style="color:var(--danger)">*</span></label>
-                <input type="text" id="pro-code-postal" name="codePostal" placeholder="27150" required pattern="\d{4,5}" />
+                <label for="pro-cp">Code postal</label>
+                <input type="text" id="pro-cp" name="codePostal" pattern="\d{4,5}" />
               </div>
               <div class="form-group">
-                <label for="pro-ville">Ville <span style="color:var(--danger)">*</span></label>
-                <input type="text" id="pro-ville" name="ville" placeholder="Mainneville" required />
+                <label for="pro-ville">Ville</label>
+                <input type="text" id="pro-ville" name="ville" />
               </div>
-            </div>
-            <div class="modal-actions">
-              <button type="button" class="btn-back" id="back-from-professionnel">Retour</button>
-              <button type="button" class="btn-submit" id="next-professionnel">Continuer</button>
-            </div>
-          </div>
-
-          <div class="form-step" id="form-step-professionnel-2">
-            <div class="form-group">
-              <label for="pro-langue">Préférence de langue</label>
-              <select id="pro-langue" name="langue" required>
-                <option value="fr">Français</option>
-                <option value="en">Anglais</option>
-                <option value="es">Espagnol</option>
-                <option value="de">Allemand</option>
-                <option value="it">Italien</option>
-                <option value="nl">Néerlandais</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="pro-paiement">Moyen de paiement préféré</label>
-              <select id="pro-paiement" name="paiement" required>
-                <option value="transfer">Virement</option>
-                <option value="credit_card">Carte Bancaire</option>
-                <option value="cheque">Chèque</option>
-              </select>
             </div>
             <p class="modal-error" id="modal-error-professionnel"></p>
             <div class="modal-actions">
@@ -2936,20 +2889,20 @@
     </div>
   </div>
 
-  <!-- Modal Créer un projet -->
+  <!-- Modal - Créer un projet -->
   <div class="modal-overlay" id="projet-modal">
     <div class="modal-card">
       <div class="modal-header">
         <h2>Nouveau projet</h2>
-        <button class="modal-close" id="projet-modal-close"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="14" y2="14"/><line x1="14" y1="6" x2="6" y2="14"/></svg></button>
+        <button class="modal-close" id="projet-modal-close"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <form class="modal-form" id="form-projet">
         <div class="form-group">
-          <label for="projet-nom">Nom du projet</label>
+          <label for="projet-nom">Nom du projet *</label>
           <input type="text" id="projet-nom" name="nom" required />
         </div>
         <div class="form-group">
-          <label for="projet-client">Client associé</label>
+          <label for="projet-client">Client *</label>
           <select id="projet-client" name="clientId" required>
             <option value="">Sélectionner un client...</option>
           </select>
@@ -2977,24 +2930,20 @@
     </div>
   </div>
 
-  <!-- Modal Détail Client -->
+  <!-- Modal - Détail client -->
   <div class="modal-overlay detail-modal" id="client-detail-modal">
     <div class="modal-card">
       <div class="modal-header">
-        <h2 id="detail-modal-title">Détail client</h2>
-        <button class="modal-close" id="detail-modal-close"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="14" y2="14"/><line x1="14" y1="6" x2="6" y2="14"/></svg></button>
+        <div>
+          <h2 id="detail-modal-title">Client</h2>
+          <span class="detail-client-id" id="detail-client-id">—</span>
+        </div>
+        <button class="modal-close" id="detail-modal-close"><i class="fa-solid fa-xmark"></i></button>
       </div>
-
       <div class="detail-section">
         <div class="detail-section-title">Informations</div>
         <div id="detail-fields"></div>
       </div>
-
-      <div class="detail-section">
-        <div class="detail-section-title">Identifiant client</div>
-        <span class="detail-client-id" id="detail-client-id"></span>
-      </div>
-
       <div class="detail-section">
         <div class="detail-section-title">Projets associés</div>
         <div id="detail-projets"></div>
@@ -3002,241 +2951,106 @@
     </div>
   </div>
 
-
-  <!-- Modal Récapitulatif Projet Achevé -->
-  <div class="modal-overlay detail-modal" id="projet-recap-modal">
-    <div class="modal-card">
+  <!-- Modal - Récap projet achevé -->
+  <div class="modal-overlay" id="projet-recap-modal">
+    <div class="modal-card" style="max-width:580px;">
       <div class="modal-header">
-        <h2 id="projet-recap-title">Récapitulatif du projet</h2>
-        <button class="modal-close" id="projet-recap-close"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="14" y2="14"/><line x1="14" y1="6" x2="6" y2="14"/></svg></button>
+        <h2 id="projet-recap-title">Projet</h2>
+        <button class="modal-close" id="projet-recap-close"><i class="fa-solid fa-xmark"></i></button>
       </div>
-
       <div class="detail-section">
         <div class="detail-section-title">Informations</div>
         <div class="detail-info-grid" id="projet-recap-info"></div>
       </div>
-
       <div class="detail-section">
         <div class="detail-section-title">Résumé</div>
         <div id="projet-recap-resume"></div>
       </div>
-
       <div class="detail-section">
-        <div class="detail-section-title">Équipe assignée</div>
+        <div class="detail-section-title">Équipe</div>
         <div id="projet-recap-team"></div>
       </div>
     </div>
   </div>
 
-  <!-- Modal Upload Fichier -->
+  <!-- Modal - Upload fichier -->
   <div class="modal-overlay" id="file-upload-modal">
-    <div class="modal-card">
+    <div class="modal-card" style="max-width:420px;">
       <div class="modal-header">
         <h2>Ajouter un fichier</h2>
-        <button class="modal-close" id="file-upload-close"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="14" y2="14"/><line x1="14" y1="6" x2="6" y2="14"/></svg></button>
+        <button class="modal-close" id="file-upload-close"><i class="fa-solid fa-xmark"></i></button>
       </div>
-
-      <div class="form-group">
-        <label for="file-upload-folder">Dossier de destination</label>
-        <select id="file-upload-folder">
-          <option value="01 - Administration">01 - Administration</option>
-          <option value="02 - Analyse">02 - Analyse</option>
-          <option value="03 - Design">03 - Design</option>
-          <option value="04 - Développement">04 - Développement</option>
-          <option value="05 - Tests">05 - Tests</option>
-          <option value="06 - Livraison">06 - Livraison</option>
-          <option value="07 - Archives">07 - Archives</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="file-upload-input">Fichier</label>
-        <input type="file" id="file-upload-input" />
-      </div>
-
-      <div class="form-group">
-        <label for="file-upload-name">Nom du fichier (optionnel)</label>
-        <input type="text" id="file-upload-name" placeholder="Laisser vide pour conserver le nom original" />
-      </div>
-
-      <p class="modal-error" id="file-upload-error"></p>
-      <div class="modal-actions">
-        <span></span>
-        <button type="button" class="btn-submit" id="file-upload-submit">Ajouter</button>
+      <div class="modal-form">
+        <div class="form-group">
+          <label for="file-upload-folder">Dossier</label>
+          <select id="file-upload-folder">
+            <option value="01 - Administration">01 - Administration</option>
+            <option value="02 - Analyse">02 - Analyse</option>
+            <option value="03 - Design">03 - Design</option>
+            <option value="04 - Développement">04 - Développement</option>
+            <option value="05 - Tests">05 - Tests</option>
+            <option value="06 - Livraison">06 - Livraison</option>
+            <option value="07 - Archives">07 - Archives</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="file-upload-name">Nom du fichier (optionnel)</label>
+          <input type="text" id="file-upload-name" placeholder="Laisser vide pour garder le nom original" />
+        </div>
+        <div class="form-group">
+          <label for="file-upload-input">Fichier *</label>
+          <input type="file" id="file-upload-input" />
+        </div>
+        <p class="modal-error" id="file-upload-error"></p>
+        <div class="modal-actions">
+          <span></span>
+          <button type="button" class="btn-submit" id="file-upload-submit">Uploader</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Folder Delivery Date Modal -->
+  <!-- Modal - Date de livraison dossier -->
   <div class="modal-overlay" id="folder-date-modal">
-    <div class="modal-card">
+    <div class="modal-card" style="max-width:380px;">
       <div class="modal-header">
-        <h2>Date de livraison du dossier</h2>
-        <button class="modal-close" id="folder-date-close"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="14" y2="14"/><line x1="14" y1="6" x2="6" y2="14"/></svg></button>
+        <h2>Date de livraison</h2>
+        <button class="modal-close" id="folder-date-close"><i class="fa-solid fa-xmark"></i></button>
       </div>
-
-      <div class="form-group">
-        <label for="folder-date-name">Dossier</label>
-        <input type="text" id="folder-date-name" readonly>
-      </div>
-      <div class="form-group">
-        <label for="folder-date-input">Date de livraison</label>
-        <input type="date" id="folder-date-input">
-      </div>
-      <p class="modal-error" id="folder-date-error"></p>
-      <div class="modal-actions">
-        <span></span>
-        <button type="button" class="btn-submit" id="folder-date-submit">Enregistrer</button>
+      <div class="modal-form">
+        <input type="hidden" id="folder-date-name" />
+        <div class="form-group">
+          <label for="folder-date-input">Date de livraison du dossier</label>
+          <input type="date" id="folder-date-input" />
+        </div>
+        <p class="modal-error" id="folder-date-error"></p>
+        <div class="modal-actions">
+          <span></span>
+          <button type="button" class="btn-submit" id="folder-date-submit">Enregistrer</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Task Modal -->
+  <!-- Modal - Tâches planning -->
   <div class="modal-overlay" id="task-modal">
-    <div class="modal-card">
+    <div class="modal-card" style="max-width:600px;">
       <div class="modal-header">
         <h2>Tâches du projet</h2>
-        <button class="modal-close" id="task-modal-close"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="14" y2="14"/><line x1="14" y1="6" x2="6" y2="14"/></svg></button>
+        <button class="modal-close" id="task-modal-close"><i class="fa-solid fa-xmark"></i></button>
       </div>
-
       <div class="task-project-info">
-        <h3 id="task-project-name"></h3>
+        <h3 id="task-project-name">—</h3>
         <div class="task-project-meta">
-          <span id="task-project-id"></span>
-          <span id="task-project-client"></span>
+          <span id="task-project-id">—</span>
+          <span id="task-project-client">—</span>
         </div>
       </div>
-
-      <div class="task-content">
-        <div class="task-folder-sections" id="task-folder-sections">
-          <!-- Folder sections will be added here -->
-        </div>
-      </div>
-
-      <div class="modal-actions">
+      <div class="task-content" id="task-folder-sections"></div>
+      <div class="modal-actions" style="margin-top:16px;">
         <span></span>
         <button type="button" class="btn-submit" id="task-modal-close-btn">Fermer</button>
       </div>
-    </div>
-  </div>
-
-  <!-- Modal Utilisateur -->
-  <div class="modal-overlay" id="user-modal">
-    <div class="modal-card" style="max-width: 520px;">
-      <div class="modal-header">
-        <h2 id="user-modal-title">Ajouter un membre</h2>
-        <button class="modal-close" id="user-modal-close"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="14" y2="14"/><line x1="14" y1="6" x2="6" y2="14"/></svg></button>
-      </div>
-      <form class="modal-form" id="form-user">
-        <input type="hidden" id="user-id" />
-        <div class="form-row">
-          <div class="form-group">
-            <label for="user-prenom">Prénom</label>
-            <input type="text" id="user-prenom" required />
-          </div>
-          <div class="form-group">
-            <label for="user-nom">Nom</label>
-            <input type="text" id="user-nom" required />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="user-email">Email</label>
-          <input type="email" id="user-email" required />
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="user-role">Rôle</label>
-            <select id="user-role" required>
-              <option value="Manager">Manager</option>
-              <option value="Développeur">Développeur</option>
-              <option value="Designer Graphique">Designer Graphique</option>
-              <option value="Autre">Autre</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="user-statut">Statut</label>
-            <select id="user-statut" required>
-              <option value="Actif">Actif</option>
-              <option value="Inactif">Inactif</option>
-              <option value="En congés">En congés</option>
-            </select>
-          </div>
-        </div>
-        <p class="modal-error" id="user-modal-error"></p>
-        <div class="modal-actions">
-          <span></span>
-          <button type="submit" class="btn-submit" id="user-modal-submit">Créer</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal Facturation -->
-  <div class="modal-overlay" id="facturation-modal">
-    <div class="modal-card" style="max-width: 640px;">
-      <div class="modal-header">
-        <h2 id="facturation-modal-title">Nouveau document</h2>
-        <button class="modal-close" id="facturation-modal-close"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="14" y2="14"/><line x1="14" y1="6" x2="6" y2="14"/></svg></button>
-      </div>
-      <form class="modal-form" id="form-facturation">
-        <input type="hidden" id="facturation-type" />
-        <div class="form-group">
-          <label for="facturation-client">Entreprise / Client</label>
-          <select id="facturation-client" required>
-            <option value="">Sélectionner un client...</option>
-          </select>
-        </div>
-        <div class="form-group" id="facturation-contact-group" style="display:none;">
-          <label for="facturation-contact">Contact signataire <span style="color:var(--danger)">*</span></label>
-          <select id="facturation-contact">
-            <option value="">Sélectionner un contact...</option>
-          </select>
-        </div>
-        <div class="form-group" id="facturation-esignature-group" style="display:none;">
-          <label class="checkbox-label" style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-            <input type="checkbox" id="facturation-esignature" checked />
-            Activer la signature électronique (obligatoire pour les pros)
-          </label>
-        </div>
-        <div class="form-group">
-          <label for="facturation-title">Titre du document</label>
-          <input type="text" id="facturation-title" placeholder="Ex : Projet site web" required />
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="facturation-payment-delay">Délai de paiement</label>
-            <select id="facturation-payment-delay">
-              <option value="at_reception">À réception</option>
-              <option value="seven_days">7 jours</option>
-              <option value="fifteen_days">15 jours</option>
-              <option value="thirty_days" selected>30 jours</option>
-              <option value="thirty_days_end_of_month">30 jours fin de mois</option>
-              <option value="forty_five_days">45 jours</option>
-              <option value="sixty_days">60 jours</option>
-            </select>
-          </div>
-          <div class="form-group" style="display:flex;align-items:flex-end;gap:8px;padding-bottom:8px;">
-            <label class="checkbox-label" style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-              <input type="checkbox" id="facturation-finalize" />
-              Finaliser immédiatement
-            </label>
-          </div>
-        </div>
-
-        <div class="form-section-title">Lignes de facturation</div>
-        <div id="facturation-lines">
-          <!-- Dynamic lines -->
-        </div>
-        <button type="button" class="btn-add-line" id="btn-add-line">
-          <i class="fa-solid fa-plus"></i> Ajouter une ligne
-        </button>
-
-        <p class="modal-error" id="facturation-modal-error"></p>
-        <div class="modal-actions">
-          <span></span>
-          <button type="submit" class="btn-submit" id="facturation-modal-submit">Créer</button>
-        </div>
-      </form>
     </div>
   </div>
 

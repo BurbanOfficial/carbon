@@ -1,7 +1,7 @@
 {
   "name": "karbonn-intranet-api",
   "version": "1.0.0",
-  "description": "Backend API proxy pour l'intégration Abby dans l'intranet Karbonn",
+  "description": "Backend API pour l'intégration Qonto dans l'intranet Karbonn",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

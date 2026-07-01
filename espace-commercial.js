@@ -1,3 +1,5 @@
+const API_BASE_URL = window.API_BASE_URL || 'http://localhost:3000';
+
 const userNameEl = document.getElementById('user-name');
 const userRoleEl = document.getElementById('user-role');
 const userAvatarEl = document.getElementById('user-avatar');
@@ -93,12 +95,17 @@ async function saveClient(data) {
   const user = auth.currentUser;
   if (!user) throw new Error('Non authentifié');
 
-  await db.collection('clients').add({
-    ...data,
-    type: selectedType,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    createdBy: user.uid
+  const token = await user.getIdToken();
+  const res = await fetch(`${API_BASE_URL}/api/clients`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+    body: JSON.stringify({ client: { ...data, type: selectedType } }),
   });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'Erreur serveur');
+  }
 }
 
 async function handleFormSubmit(e, form) {
